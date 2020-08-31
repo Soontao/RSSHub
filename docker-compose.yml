@@ -2,7 +2,7 @@ version: '3'
 
 services:
     rsshub:
-        image: diygod/rsshub
+        image: theosun/rsshub
         restart: always
         ports:
             - '1200:1200'

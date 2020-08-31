@@ -3,6 +3,10 @@
   "version": "1.0.0",
   "description": "Make RSS Great Again!",
   "main": "lib/pkg.js",
+  "private": true,
+  "engines": {
+    "node": ">=10"
+  },
   "files": [
     "lib"
   ],
@@ -17,17 +21,16 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/DIYgod/RSSHub.git"
+    "url": "git+https://github.com/theosun/RSSHub.git"
   },
   "keywords": [
     "RSS"
   ],
-  "author": "DIYgod",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/DIYgod/RSSHub/issues"
+    "url": "https://github.com/theosun/RSSHub/issues"
   },
-  "homepage": "https://github.com/DIYgod/RSSHub#readme",
+  "homepage": "https://github.com/theosun/RSSHub#readme",
   "devDependencies": {
     "@types/cheerio": "0.22.21",
     "@types/got": "^9.6.11",
