@@ -30,7 +30,7 @@
   "homepage": "https://github.com/DIYgod/RSSHub#readme",
   "devDependencies": {
     "@types/cheerio": "0.22.21",
-    "@types/got": "9.6.11",
+    "@types/got": "^9.6.11",
     "@types/koa": "2.11.4",
     "cross-env": "7.0.2",
     "entities": "2.0.3",
