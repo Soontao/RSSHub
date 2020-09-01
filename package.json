@@ -13,8 +13,8 @@
   "scripts": {
     "start": "node lib/index.js",
     "dev": "cross-env NODE_ENV=dev nodemon --inspect lib/index.js",
-    "format": "eslint \"**/*.js\" --fix && node docs/.format/format.js && prettier \"**/*.{js,json}\" --write",
-    "format:staged": "eslint \"**/*.js\" --fix && node docs/.format/format.js --staged && pretty-quick --staged --verbose --pattern \"**/*.{js,json}\"",
+    "format": "eslint \"**/*.js\" --fix && prettier \"**/*.{js,json}\" --write",
+    "format:staged": "eslint \"**/*.js\" --fix && pretty-quick --staged --verbose --pattern \"**/*.{js,json}\"",
     "format:check": "eslint \"**/*.js\" && prettier-check \"**/*.{js,json}\"",
     "test": "npm run format:check && cross-env NODE_ENV=test jest --coverage --runInBand --forceExit",
     "jest": "cross-env NODE_ENV=test jest --runInBand --forceExit"
@@ -109,6 +109,7 @@
     "winston": "3.3.3"
   },
   "jest": {
+    "testTimeout": 60000,
     "testMatch": [
       "**/test/**/*.js"
     ],
