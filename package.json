@@ -16,8 +16,8 @@
     "format": "eslint \"**/*.js\" --fix && prettier \"**/*.{js,json}\" --write",
     "format:staged": "eslint \"**/*.js\" --fix && pretty-quick --staged --verbose --pattern \"**/*.{js,json}\"",
     "format:check": "eslint \"**/*.js\" && prettier-check \"**/*.{js,json}\"",
-    "test": "npm run format:check && cross-env NODE_ENV=test jest --coverage --runInBand --forceExit",
-    "jest": "cross-env NODE_ENV=test jest --runInBand --forceExit"
+    "test": "npm run format:check && cross-env NODE_ENV=test jest --coverage --forceExit",
+    "jest": "cross-env NODE_ENV=test jest --forceExit"
   },
   "repository": {
     "type": "git",
@@ -34,6 +34,7 @@
   "devDependencies": {
     "@types/cheerio": "0.22.21",
     "@types/got": "^9.6.11",
+    "@types/jest": "^26.0.12",
     "@types/koa": "2.11.4",
     "cross-env": "7.0.2",
     "entities": "2.0.3",
