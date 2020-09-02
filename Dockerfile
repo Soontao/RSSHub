@@ -13,9 +13,9 @@ RUN apt-get update && apt-get install -yq libgconf-2-4 apt-transport-https git d
 
 WORKDIR /app
 
-COPY package.json tools/clean-nm.sh /app/
+COPY package.json package-lock.json /app/
 
-RUN npm install --production && sh ./clean-nm.sh;
+RUN npm install --production;
 
 COPY . /app
 
