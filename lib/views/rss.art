@@ -10,9 +10,9 @@
         <title><![CDATA[{{@ title || 'RSSHub' }}]]></title>
         <link>{{ link || 'https://docs.rsshub.app' }}</link>
         <atom:link href="{{ atomlink }}" rel="self" type="application/rss+xml" />
-        <description><![CDATA[{{@ description || title }} - Made with love by RSSHub(https://github.com/DIYgod/RSSHub)]]></description>
+        <description><![CDATA[{{@ description || title }}]]></description>
         <generator>RSSHub</generator>
-        <webMaster>i@diygod.me (DIYgod)</webMaster>
+        <webMaster>theo.sun@outlook.com (Theo Sun)</webMaster>
         {{ if itunes_author }}<itunes:author>{{ itunes_author}}</itunes:author>{{ /if }}
         {{ if itunes_category }}<itunes:category text="{{ itunes_category }}"/>{{ /if }}
         {{ if itunes_author }}<itunes:explicit>{{ itunes_explicit || 'clean' }}</itunes:explicit>{{ /if }}
