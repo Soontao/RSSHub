@@ -5,7 +5,7 @@
   "main": "lib/pkg.js",
   "private": true,
   "engines": {
-    "node": ">=10"
+    "node": ">=10 <14"
   },
   "files": [
     "lib"
@@ -13,11 +13,11 @@
   "scripts": {
     "start": "node lib/index.js",
     "dev": "cross-env NODE_ENV=dev nodemon --inspect lib/index.js",
-    "format": "eslint \"**/*.js\" --fix && node docs/.format/format.js && prettier \"**/*.{js,json}\" --write",
-    "format:staged": "eslint \"**/*.js\" --fix && node docs/.format/format.js --staged && pretty-quick --staged --verbose --pattern \"**/*.{js,json}\"",
+    "format": "eslint \"**/*.js\" --fix && prettier \"**/*.{js,json}\" --write",
+    "format:staged": "eslint \"**/*.js\" --fix && pretty-quick --staged --verbose --pattern \"**/*.{js,json}\"",
     "format:check": "eslint \"**/*.js\" && prettier-check \"**/*.{js,json}\"",
-    "test": "npm run format:check && cross-env NODE_ENV=test jest --coverage --runInBand --forceExit",
-    "jest": "cross-env NODE_ENV=test jest --runInBand --forceExit"
+    "test": "npm run format:check && cross-env NODE_ENV=test jest --coverage --forceExit",
+    "jest": "cross-env NODE_ENV=test jest --forceExit"
   },
   "repository": {
     "type": "git",
@@ -34,6 +34,7 @@
   "devDependencies": {
     "@types/cheerio": "0.22.21",
     "@types/got": "^9.6.11",
+    "@types/jest": "^26.0.12",
     "@types/koa": "2.11.4",
     "cross-env": "7.0.2",
     "entities": "2.0.3",
@@ -109,6 +110,7 @@
     "winston": "3.3.3"
   },
   "jest": {
+    "testTimeout": 60000,
     "testMatch": [
       "**/test/**/*.js"
     ],
