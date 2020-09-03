@@ -13,7 +13,7 @@
     "start": "node lib/index.js",
     "dev": "cross-env NODE_ENV=dev nodemon --inspect lib/index.js",
     "lint": "eslint lib --fix --no-error-on-unmatched-pattern",
-    "test": "cross-env NODE_ENV=test jest --forceExit"
+    "test": "cross-env NODE_ENV=test jest -w 4 --forceExit"
   },
   "repository": {
     "type": "git",
