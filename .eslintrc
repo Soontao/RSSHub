@@ -1,6 +1,9 @@
 {
-    "extends": ["eslint:recommended", "plugin:prettier/recommended"],
-    "plugins": ["prettier"],
+    "extends": [
+        "eslint:recommended"
+    ],
+    "plugins": [
+    ],
     "parserOptions": {
         "ecmaVersion": 2018,
         "sourceType": "module"
@@ -10,6 +13,10 @@
         "es6": true
     },
     "rules": {
+        "quotes": [
+            "error",
+            "single"
+        ],
         "no-console": 2,
         "block-scoped-var": 2,
         "curly": 2,
