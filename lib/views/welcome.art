@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>Welcome to RSSHub!</title>
+    <title>RSSHub</title>
     {{ if disallowRobot }}
         <meta name="robots" content="noindex">
     {{ /if }}
@@ -70,19 +70,27 @@
             vertical-align: top;
             white-space: pre;
         }
+
+        .content > p > img {
+            filter: grayscale(50%) blur(1px);
+        }
+
+        .rsshub {
+            filter: blur(1px);
+        }
+
     </style>
 </head>
 
 <body>
     <div class="content">
         <p>
-            <img src="https://i.loli.net/2019/04/23/5cbeb7e41414c.png" alt="RSSHub" width="100">
+            <img src="/favicon.ico" alt="RSSHub" width="100">
         </p>
 
-        <h1>Welcome to
-            <span style="color: #F5712C;">RSSHub</span>!</h1>
+        <h1>Welcome to <a href="https://github.com/Soontao/RSSHub" target="_blank"><span class="rsshub">RSSHub</span></a></h1>
 
-        <p>The RSSHub{{ if hash }} ({{ hash }}){{ /if }} is running.</p>
+        <p>The RSSHub{{ if hash }} ({{ hash }}){{ /if }} is running</p>
 
         {{ if showDebug }}
         <details>
