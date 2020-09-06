@@ -72,11 +72,11 @@
         }
 
         .content > p > img {
-            filter: grayscale(50%) blur(1px);
+            filter: grayscale(100%) blur(1px);
         }
 
         .rsshub {
-            filter: blur(1px);
+            filter: grayscale(100%) blur(1px);
         }
 
     </style>
