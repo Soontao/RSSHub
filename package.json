@@ -17,20 +17,19 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/theosun/RSSHub.git"
+    "url": "git+https://github.com/Soontao/RSSHub.git"
   },
   "keywords": [
     "RSS"
   ],
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/theosun/RSSHub/issues"
+    "url": "https://github.com/Soontao/RSSHub/issues"
   },
-  "homepage": "https://github.com/theosun/RSSHub#readme",
+  "homepage": "https://github.com/Soontao/RSSHub#readme",
   "devDependencies": {
     "@types/cheerio": "0.22.21",
-    "@types/got": "^9.6.11",
-    "@types/jest": "^26.0.12",
+    "@types/jest": "^26.0.13",
     "@types/koa": "2.11.4",
     "cross-env": "7.0.2",
     "entities": "2.0.3",
