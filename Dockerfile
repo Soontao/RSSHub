@@ -1,4 +1,4 @@
-FROM node:12-slim
+FROM node:lts-slim
 
 LABEL MAINTAINER https://github.com/Soontao/RSSHub
 
@@ -8,8 +8,7 @@ ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD true
 
 RUN ln -sf /bin/bash /bin/sh
 
-RUN apt-get update && apt-get install -yq libgconf-2-4 apt-transport-https git dumb-init --no-install-recommends && apt-get clean \
-  && rm -rf /var/lib/apt/lists/*
+RUN apt-get update && apt-get install -yq libgconf-2-4 apt-transport-https git --no-install-recommends
 
 WORKDIR /app
 
@@ -20,7 +19,5 @@ RUN npm install --production;
 COPY . /app
 
 EXPOSE 1200
-
-ENTRYPOINT ["dumb-init", "--"]
 
 CMD ["npm", "run", "start"]
