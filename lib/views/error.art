@@ -26,21 +26,23 @@
         a {
             color: #F5712C;
         }
+
+        img {
+            filter: grayscale(100%) blur(1px);
+        }
     </style>
 </head>
 
 <body>
     <div class="content">
         <p>
-            <img src="https://i.loli.net/2019/09/04/lmBbNQoLzrKGgiM.jpg" alt="RSSHub" width="120">
+            <img src="/favicon.ico" alt="RSSHub" width="120">
         </p>
 
         <h1>Looks like something went wrong</h1>
 
         <pre class="message">{{@ message }}</pre>
 
-        <p style="margin: 50px 0">For online documentation and support please refer to
-            <a href="https://docs.rsshub.app/" target="_blank">docs.rsshub.app</a>.</p>
     </div>
 </body>
 
