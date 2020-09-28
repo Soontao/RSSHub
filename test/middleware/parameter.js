@@ -11,7 +11,7 @@ afterAll(() => {
 });
 
 describe('filter', () => {
-    it(`filter`, async () => {
+    it('filter', async () => {
         const response = await request.get('/test/1?filter=Description4|Title5');
         const parsed = await parser.parseString(response.text);
         expect(parsed.items.length).toBe(2);
@@ -19,13 +19,13 @@ describe('filter', () => {
         expect(parsed.items[1].title).toBe('Title5');
     });
 
-    it(`filter filter_case_sensitive default`, async () => {
+    it('filter filter_case_sensitive default', async () => {
         const response = await request.get('/test/1?filter=description4|title5');
         const parsed = await parser.parseString(response.text);
         expect(parsed.items.length).toBe(0);
     });
 
-    it(`filter filter_case_sensitive=false`, async () => {
+    it('filter filter_case_sensitive=false', async () => {
         const response = await request.get('/test/1?filter=description4|title5&filter_case_sensitive=false');
         const parsed = await parser.parseString(response.text);
         expect(parsed.items.length).toBe(2);
@@ -33,35 +33,35 @@ describe('filter', () => {
         expect(parsed.items[1].title).toBe('Title5');
     });
 
-    it(`filter_title`, async () => {
+    it('filter_title', async () => {
         const response = await request.get('/test/1?filter_title=Description4|Title5');
         const parsed = await parser.parseString(response.text);
         expect(parsed.items.length).toBe(1);
         expect(parsed.items[0].title).toBe('Title5');
     });
 
-    it(`filter_title filter_case_sensitive=false`, async () => {
+    it('filter_title filter_case_sensitive=false', async () => {
         const response = await request.get('/test/1?filter_title=description4|title5&filter_case_sensitive=false');
         const parsed = await parser.parseString(response.text);
         expect(parsed.items.length).toBe(1);
         expect(parsed.items[0].title).toBe('Title5');
     });
 
-    it(`filter_description`, async () => {
+    it('filter_description', async () => {
         const response = await request.get('/test/1?filter_description=Description4|Title5');
         const parsed = await parser.parseString(response.text);
         expect(parsed.items.length).toBe(1);
         expect(parsed.items[0].title).toBe('Title4');
     });
 
-    it(`filter_description filter_case_sensitive=false`, async () => {
+    it('filter_description filter_case_sensitive=false', async () => {
         const response = await request.get('/test/1?filter_description=description4|title5&filter_case_sensitive=false');
         const parsed = await parser.parseString(response.text);
         expect(parsed.items.length).toBe(1);
         expect(parsed.items[0].title).toBe('Title4');
     });
 
-    it(`filter_author`, async () => {
+    it('filter_author', async () => {
         const response = await request.get('/test/1?filter_author=DIYgod4|DIYgod5');
         const parsed = await parser.parseString(response.text);
         expect(parsed.items.length).toBe(2);
@@ -69,13 +69,13 @@ describe('filter', () => {
         expect(parsed.items[1].title).toBe('Title5');
     });
 
-    it(`filter_author filter_case_sensitive default`, async () => {
+    it('filter_author filter_case_sensitive default', async () => {
         const response = await request.get('/test/1?filter_author=diygod4|diygod5');
         const parsed = await parser.parseString(response.text);
         expect(parsed.items.length).toBe(0);
     });
 
-    it(`filter_author filter_case_sensitive=false`, async () => {
+    it('filter_author filter_case_sensitive=false', async () => {
         const response = await request.get('/test/1?filter_author=diygod4|diygod5&filter_case_sensitive=false');
         const parsed = await parser.parseString(response.text);
         expect(parsed.items.length).toBe(2);
@@ -83,7 +83,7 @@ describe('filter', () => {
         expect(parsed.items[1].title).toBe('Title5');
     });
 
-    it(`filter_time`, async () => {
+    it('filter_time', async () => {
         const response = await request.get('/test/current_time?filter_time=25');
         const parsed = await parser.parseString(response.text);
         expect(parsed.items.length).toBe(2);
@@ -91,7 +91,7 @@ describe('filter', () => {
         expect(parsed.items[1].title).toBe('Title2');
     });
 
-    it(`filterout`, async () => {
+    it('filterout', async () => {
         const response = await request.get('/test/1?filterout=Description4|Title5');
         const parsed = await parser.parseString(response.text);
         expect(parsed.items.length).toBe(3);
@@ -100,7 +100,7 @@ describe('filter', () => {
         expect(parsed.items[2].title).toBe('Title3');
     });
 
-    it(`filterout filter_case_sensitive default`, async () => {
+    it('filterout filter_case_sensitive default', async () => {
         const response = await request.get('/test/1?filterout=description4|title5');
         const parsed = await parser.parseString(response.text);
         expect(parsed.items.length).toBe(5);
@@ -109,7 +109,7 @@ describe('filter', () => {
         expect(parsed.items[2].title).toBe('Title3');
     });
 
-    it(`filterout filter_case_sensitive=false`, async () => {
+    it('filterout filter_case_sensitive=false', async () => {
         const response = await request.get('/test/1?filterout=description4|title5&filter_case_sensitive=false');
         const parsed = await parser.parseString(response.text);
         expect(parsed.items.length).toBe(3);
@@ -118,7 +118,7 @@ describe('filter', () => {
         expect(parsed.items[2].title).toBe('Title3');
     });
 
-    it(`filterout_title`, async () => {
+    it('filterout_title', async () => {
         const response = await request.get('/test/1?filterout_title=Description4|Title5');
         const parsed = await parser.parseString(response.text);
         expect(parsed.items.length).toBe(4);
@@ -128,7 +128,7 @@ describe('filter', () => {
         expect(parsed.items[3].title).toBe('Title4');
     });
 
-    it(`filterout_title filter_case_sensitive=false`, async () => {
+    it('filterout_title filter_case_sensitive=false', async () => {
         const response = await request.get('/test/1?filterout_title=description4|title5&filter_case_sensitive=false');
         const parsed = await parser.parseString(response.text);
         expect(parsed.items.length).toBe(4);
@@ -138,7 +138,7 @@ describe('filter', () => {
         expect(parsed.items[3].title).toBe('Title4');
     });
 
-    it(`filterout_description`, async () => {
+    it('filterout_description', async () => {
         const response = await request.get('/test/1?filterout_description=Description4|Title5');
         const parsed = await parser.parseString(response.text);
         expect(parsed.items.length).toBe(4);
@@ -148,7 +148,7 @@ describe('filter', () => {
         expect(parsed.items[3].title).toBe('Title5');
     });
 
-    it(`filterout_description filter_case_sensitive=false`, async () => {
+    it('filterout_description filter_case_sensitive=false', async () => {
         const response = await request.get('/test/1?filterout_description=description4|title5&filter_case_sensitive=false');
         const parsed = await parser.parseString(response.text);
         expect(parsed.items.length).toBe(4);
@@ -158,7 +158,7 @@ describe('filter', () => {
         expect(parsed.items[3].title).toBe('Title5');
     });
 
-    it(`filterout_author`, async () => {
+    it('filterout_author', async () => {
         const response = await request.get('/test/1?filterout_author=DIYgod4|DIYgod5');
         const parsed = await parser.parseString(response.text);
         expect(parsed.items.length).toBe(3);
@@ -167,7 +167,7 @@ describe('filter', () => {
         expect(parsed.items[2].title).toBe('Title3');
     });
 
-    it(`filterout_author filter_case_sensitive default`, async () => {
+    it('filterout_author filter_case_sensitive default', async () => {
         const response = await request.get('/test/1?filterout_author=diygod4|diygod5');
         const parsed = await parser.parseString(response.text);
         expect(parsed.items.length).toBe(5);
@@ -176,7 +176,7 @@ describe('filter', () => {
         expect(parsed.items[2].title).toBe('Title3');
     });
 
-    it(`filterout_author filter_case_sensitive=false`, async () => {
+    it('filterout_author filter_case_sensitive=false', async () => {
         const response = await request.get('/test/1?filterout_author=diygod4|diygod5&filter_case_sensitive=false');
         const parsed = await parser.parseString(response.text);
         expect(parsed.items.length).toBe(3);
@@ -185,14 +185,14 @@ describe('filter', () => {
         expect(parsed.items[2].title).toBe('Title3');
     });
 
-    it(`filter combination`, async () => {
+    it('filter combination', async () => {
         const response = await request.get('/test/filter?filter_title=Filter&filter_description=Description1');
         const parsed = await parser.parseString(response.text);
         expect(parsed.items.length).toBe(1);
         expect(parsed.items[0].title).toBe('Filter Title1');
     });
 
-    it(`filterout combination`, async () => {
+    it('filterout combination', async () => {
         const response = await request.get('/test/filter?filterout_title=Filter&filterout_description=Description1');
         const parsed = await parser.parseString(response.text);
         expect(parsed.items.length).toBe(4);
@@ -201,7 +201,7 @@ describe('filter', () => {
 });
 
 describe('limit', () => {
-    it(`limit`, async () => {
+    it('limit', async () => {
         const response = await request.get('/test/1?limit=3');
         const parsed = await parser.parseString(response.text);
         expect(parsed.items.length).toBe(3);
@@ -212,16 +212,16 @@ describe('limit', () => {
 });
 
 describe('tgiv', () => {
-    it(`tgiv`, async () => {
+    it('tgiv', async () => {
         const response = await request.get('/test/1?tgiv=test');
         const parsed = await parser.parseString(response.text);
-        expect(parsed.items[0].link).toBe(`https://t.me/iv?url=https%3A%2F%2Fgithub.com%2FDIYgod%2FRSSHub%2Fissues%2F1&rhash=test`);
-        expect(parsed.items[1].link).toBe(`https://t.me/iv?url=https%3A%2F%2Fgithub.com%2FDIYgod%2FRSSHub%2Fissues%2F2&rhash=test`);
+        expect(parsed.items[0].link).toBe('https://t.me/iv?url=https%3A%2F%2Fgithub.com%2FDIYgod%2FRSSHub%2Fissues%2F1&rhash=test');
+        expect(parsed.items[1].link).toBe('https://t.me/iv?url=https%3A%2F%2Fgithub.com%2FDIYgod%2FRSSHub%2Fissues%2F2&rhash=test');
     });
 });
 
 describe('empty', () => {
-    it(`empty`, async () => {
+    it('empty', async () => {
         const response1 = await request.get('/test/empty');
         expect(response1.status).toBe(404);
         expect(response1.text).toMatch(/Error: this route is empty/);
@@ -234,7 +234,7 @@ describe('empty', () => {
 });
 
 describe('allow_empty', () => {
-    it(`allow_empty`, async () => {
+    it('allow_empty', async () => {
         const response = await request.get('/test/allow_empty');
         expect(response.status).toBe(200);
         const parsed = await parser.parseString(response.text);
@@ -243,7 +243,7 @@ describe('allow_empty', () => {
 });
 
 describe('wrong_path', () => {
-    it(`wrong_path`, async () => {
+    it('wrong_path', async () => {
         const response = await request.get('/wrong');
         expect(response.status).toBe(404);
         expect(response.headers['cache-control']).toBe(`public, max-age=${config.cache.routeExpire * 100}`);
@@ -252,7 +252,7 @@ describe('wrong_path', () => {
 });
 
 describe('fulltext_mode', () => {
-    it(`fulltext`, async () => {
+    it('fulltext', async () => {
         const response = await request.get('/test/1?mode=fulltext');
         expect(response.status).toBe(200);
         const parsed = await parser.parseString(response.text);
@@ -261,7 +261,7 @@ describe('fulltext_mode', () => {
 }, 10000);
 
 describe('complicated_description', () => {
-    it(`complicated_description`, async () => {
+    it('complicated_description', async () => {
         const response = await request.get('/test/complicated');
         expect(response.status).toBe(200);
         const parsed = await parser.parseString(response.text);
@@ -281,7 +281,7 @@ describe('complicated_description', () => {
 });
 
 describe('sort', () => {
-    it(`sort`, async () => {
+    it('sort', async () => {
         const response = await request.get('/test/sort');
         expect(response.status).toBe(200);
         const parsed = await parser.parseString(response.text);
@@ -293,7 +293,7 @@ describe('sort', () => {
 });
 
 describe('mess parameter', () => {
-    it(`date`, async () => {
+    it('date', async () => {
         const response = await request.get('/test/mess');
         expect(response.status).toBe(200);
         const parsed = await parser.parseString(response.text);
@@ -302,11 +302,3 @@ describe('mess parameter', () => {
     });
 });
 
-describe('opencc', () => {
-    it(`opencc`, async () => {
-        const response = await request.get('/test/opencc?opencc=t2s');
-        const parsed = await parser.parseString(response.text);
-        expect(parsed.items[0].title).toBe('小可爱');
-        expect(parsed.items[0].content).toBe('宇宙无敌');
-    });
-});
