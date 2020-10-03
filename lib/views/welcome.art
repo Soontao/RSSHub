@@ -93,7 +93,7 @@
         <p>The RSSHub{{ if hash }} ({{ hash }}){{ /if }} is running</p>
 
         {{ if showDebug }}
-        <details>
+        <details open>
             <summary>debug</summary>
             {{ each debug }}
             {{ if $value && $value.value }}

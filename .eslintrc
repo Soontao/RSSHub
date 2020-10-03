@@ -57,7 +57,6 @@
         "no-trailing-spaces": 2,
         "no-control-regex": 0,
         "prettier/prettier": 0,
-        "no-await-in-loop": 2,
         "require-atomic-updates": 0,
         "no-prototype-builtins": 0
     }
