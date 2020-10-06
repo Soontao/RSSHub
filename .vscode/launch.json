@@ -22,6 +22,7 @@
       "skipFiles": [
         "<node_internals>/**"
       ],
+      "outputCapture": "std",
       "program": "${workspaceFolder}/lib/index.js",
       "envFile": "${workspaceFolder}/.env"
     }
