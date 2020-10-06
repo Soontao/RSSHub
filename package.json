@@ -13,7 +13,7 @@
     "start": "node lib/index.js",
     "dev": "cross-env NODE_ENV=dev nodemon --inspect lib/index.js",
     "lint": "eslint lib --fix --no-error-on-unmatched-pattern",
-    "test": "cross-env NODE_ENV=test jest --forceExit --coverage"
+    "test": "cross-env NODE_ENV=test jest -w 4 --forceExit --coverage"
   },
   "repository": {
     "type": "git",
@@ -53,7 +53,6 @@
     "art-template": "4.13.2",
     "cheerio": "1.0.0-rc.3",
     "chrono-node": "2.1.8",
-    "co-redis": "2.1.1",
     "crypto-js": "4.0.0",
     "currency-symbol-map": "4.0.4",
     "dayjs": "^1.9.1",

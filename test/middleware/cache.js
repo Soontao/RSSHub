@@ -15,7 +15,7 @@ describe('cache', () => {
         await cache.syncReady();
         const key = uuid.v4();
         const v1 = uuid.v4();
-        cache.set(key, v1, 1); // disabled after 1 seconds
+        await cache.set(key, v1, 1); // remove after 1 seconds
         expect(await cache.get(key)).toBe(v1);
         await wait(1 * 1000);
         expect(await cache.get(key)).toBeNull();
@@ -27,14 +27,13 @@ describe('cache', () => {
 
         it('redis', async () => {
 
-            const config = require('@/config').value;
-            const client = new RedisCache(config.redis);
+            const client = new RedisCache();
             await client.syncReady();
             const key = uuid.v4();
             const v1 = uuid.v4();
-            client.set(key, v1, 1); // disabled after 1 seconds
+            await client.set(key, v1, 1);
             expect(await client.get(key)).toBe(v1);
-            await wait(1 * 1000);
+            await wait(1 * 1000 + 100);
             expect(await client.get(key)).toBeNull();
 
 
