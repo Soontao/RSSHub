@@ -1,64 +1,24 @@
-const supertest = require('supertest');
-const Parser = require('rss-parser');
-const parser = new Parser();
+const { RedisCache } = require('../../lib/middleware/cache/redis');
+const { InMemoryCache } = require('../../lib/middleware/cache/memory');
+
 const wait = require('../../lib/utils/wait');
-let server;
+const uuid = require('uuid');
 jest.mock('request-promise-native');
 
-beforeAll(() => {
-    process.env.CACHE_EXPIRE = 1;
-    process.env.CACHE_CONTENT_EXPIRE = 3;
-});
-
-afterEach(() => {
-    delete process.env.CACHE_TYPE;
-    jest.resetModules();
-    server.close();
-});
-
-afterAll(() => {
-    delete process.env.CACHE_EXPIRE;
-});
 
 describe('cache', () => {
 
     it('memory', async () => {
         process.env.CACHE_TYPE = 'memory';
-        server = require('../../lib/index');
-        const request = supertest(server);
+        const cache = new InMemoryCache();
 
-        const response1 = await request.get('/test/cache');
-        const response2 = await request.get('/test/cache');
-
-        const parsed1 = await parser.parseString(response1.text);
-        const parsed2 = await parser.parseString(response2.text);
-
-        delete parsed1.lastBuildDate;
-        delete parsed2.lastBuildDate;
-        expect(parsed2).toMatchObject(parsed1);
-
-        expect(response2.status).toBe(200);
-        expect(response2.headers['x-koa-memory-cache']).toBe('true');
-        expect(response2.headers).not.toHaveProperty('x-koa-redis-cache');
-
-        await wait(1 * 1000 + 100);
-        const response3 = await request.get('/test/cache');
-        expect(response3.headers).not.toHaveProperty('x-koa-redis-cache');
-        expect(response3.headers).not.toHaveProperty('x-koa-memory-cache');
-        const parsed3 = await parser.parseString(response3.text);
-
-        await wait(3 * 1000 + 100);
-        const response4 = await request.get('/test/cache');
-        const parsed4 = await parser.parseString(response4.text);
-
-        expect(parsed1.items[0].content).toBe('Cache1');
-        expect(parsed2.items[0].content).toBe('Cache1');
-        expect(parsed3.items[0].content).toBe('Cache1');
-        expect(parsed4.items[0].content).toBe('Cache2');
-
-        const app = require('../../lib/app');
-        await app.context.cache.set('mock', undefined);
-        expect(await app.context.cache.get('mock')).toBe('');
+        await cache.syncReady();
+        const key = uuid.v4();
+        const v1 = uuid.v4();
+        cache.set(key, v1, 1); // disabled after 1 seconds
+        expect(await cache.get(key)).toBe(v1);
+        await wait(1 * 1000);
+        expect(await cache.get(key)).toBeNull();
 
 
     }, 10000);
@@ -66,88 +26,20 @@ describe('cache', () => {
     if (process.env.REDIS_URL !== undefined) {
 
         it('redis', async () => {
-            process.env.CACHE_TYPE = 'redis';
-            server = require('../../lib/index');
-            const request = supertest(server);
 
-            const response1 = await request.get('/test/cache');
-            const response2 = await request.get('/test/cache');
+            const config = require('@/config').value;
+            const client = new RedisCache(config.redis);
+            await client.syncReady();
+            const key = uuid.v4();
+            const v1 = uuid.v4();
+            client.set(key, v1, 1); // disabled after 1 seconds
+            expect(await client.get(key)).toBe(v1);
+            await wait(1 * 1000);
+            expect(await client.get(key)).toBeNull();
 
-            const parsed1 = await parser.parseString(response1.text);
-            const parsed2 = await parser.parseString(response2.text);
-
-            delete parsed1.lastBuildDate;
-            delete parsed2.lastBuildDate;
-            expect(parsed2).toMatchObject(parsed1);
-
-            expect(response2.status).toBe(200);
-            expect(response2.headers['x-koa-redis-cache']).toBe('true');
-            expect(response2.headers).not.toHaveProperty('x-koa-memory-cache');
-
-            await wait(1 * 1000 + 100);
-            const response3 = await request.get('/test/cache');
-            expect(response3.headers).not.toHaveProperty('x-koa-redis-cache');
-            expect(response3.headers).not.toHaveProperty('x-koa-memory-cache');
-            const parsed3 = await parser.parseString(response3.text);
-
-            await wait(3 * 1000 + 100);
-            const response4 = await request.get('/test/cache');
-            const parsed4 = await parser.parseString(response4.text);
-
-            expect(parsed1.items[0].content).toBe('Cache1');
-            expect(parsed2.items[0].content).toBe('Cache1');
-            expect(parsed3.items[0].content).toBe('Cache1');
-            expect(parsed4.items[0].content).toBe('Cache2');
-
-            const app = require('../../lib/app');
-            await app.context.cache.set('mock1', undefined);
-            expect(await app.context.cache.get('mock1')).toBe('');
-            await app.context.cache.set('mock2', '2');
-            await app.context.cache.set('mock2', '2');
-            expect(await app.context.cache.get('mock2')).toBe('2');
 
         }, 10000);
 
-        it('redis with quit', async () => {
-            process.env.CACHE_TYPE = 'redis';
-            server = require('../../lib/index');
-            const client = require('../../lib/app').context.cache.client;
-            await client.quit();
-            const request = supertest(server);
-
-            const response1 = await request.get('/test/cache');
-            const response2 = await request.get('/test/cache');
-
-            const parsed1 = await parser.parseString(response1.text);
-            const parsed2 = await parser.parseString(response2.text);
-
-            expect(response2.status).toBe(200);
-            expect(response2.headers).not.toHaveProperty('x-koa-redis-cache');
-            expect(response2.headers).not.toHaveProperty('x-koa-memory-cache');
-
-            expect(parsed1.items[0].content).toBe('Cache1');
-            expect(parsed2.items[0].content).toBe('Cache2');
-        });
-
-        it('redis with error', async () => {
-            process.env.CACHE_TYPE = 'redis';
-            process.env.REDIS_URL = 'redis://wrongpath:6379';
-            server = require('../../lib/index');
-            const request = supertest(server);
-
-            const response1 = await request.get('/test/cache');
-            const response2 = await request.get('/test/cache');
-
-            const parsed1 = await parser.parseString(response1.text);
-            const parsed2 = await parser.parseString(response2.text);
-
-            expect(response2.status).toBe(200);
-            expect(response2.headers).not.toHaveProperty('x-koa-redis-cache');
-            expect(response2.headers).not.toHaveProperty('x-koa-memory-cache');
-
-            expect(parsed1.items[0].content).toBe('Cache1');
-            expect(parsed2.items[0].content).toBe('Cache2');
-        });
 
     }
 
