@@ -17,7 +17,7 @@ afterEach(() => {
 });
 
 describe('access-control', () => {
-    it(`blacklist`, async () => {
+    it('blacklist', async () => {
         const key = '1L0veRSSHub';
         const code = md5('/test/2' + key);
         process.env.BLACKLIST = '/test/1,233.233.233.233';
@@ -59,7 +59,7 @@ describe('access-control', () => {
         expect(response332.status).toBe(200);
     });
 
-    it(`whitelist`, async () => {
+    it('whitelist', async () => {
         const key = '1L0veRSSHub';
         const code = md5('/test/2' + key);
         process.env.WHITELIST = '/test/1,233.233.233.233';
@@ -107,7 +107,7 @@ describe('access-control', () => {
         expect(response332.status).toBe(200);
     });
 
-    it(`no list`, async () => {
+    it('no list', async () => {
         const key = '1L0veRSSHub';
         const code = md5('/test/2' + key);
         process.env.ACCESS_KEY = key;

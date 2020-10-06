@@ -5,7 +5,7 @@ describe('puppeteer', () => {
     it('should support use puppeteer', async () => {
         const browser = await puppeteer();
         const page = await browser.newPage();
-        await page.goto('https://www.google.com', { waitUntil: 'domcontentloaded' });
+        await page.goto('https://www.qq.com', { waitUntil: 'domcontentloaded' });
         // eslint-disable-next-line no-undef
         const html = await page.evaluate(() => document.body.innerHTML);
         expect(html.length).toBeGreaterThan(0);

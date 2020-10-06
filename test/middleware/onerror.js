@@ -14,9 +14,9 @@ afterAll(() => {
 });
 
 describe('error', () => {
-    it(`error`, async () => {
+    it('error', async () => {
         const response = await request.get('/test/error');
-        expect(response.status).toBe(404);
+        expect(response.status).toBe(500);
         expect(response.text).toMatch(/Error: Error test/);
     });
 });
