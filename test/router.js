@@ -57,7 +57,7 @@ afterAll(() => {
 
 describe('router', () => {
     // root
-    it(`/`, async () => {
+    it('/', async () => {
         const response = await request.get('/');
         expect(response.status).toBe(200);
         expect(response.headers['content-type']).toBe('text/html; charset=UTF-8');
@@ -65,7 +65,7 @@ describe('router', () => {
     });
 
     // route
-    it(`/test/1`, async () => {
+    it('/test/1', async () => {
         const response = await request.get('/test/1');
         expect(response.status).toBe(200);
 
@@ -86,7 +86,7 @@ describe('router', () => {
     });
 
     // api
-    it(`/api/routes/test`, async () => {
+    it('/api/routes/test', async () => {
         const response = await request.get('/api/routes/test');
         expect(response.status).toBe(200);
         expect(response.body).toEqual({
@@ -99,7 +99,7 @@ describe('router', () => {
             message: 'request returned 1 route',
         });
     });
-    it(`/api/routes`, async () => {
+    it('/api/routes', async () => {
         const response = await request.get('/api/routes');
         expect(response.status).toBe(200);
         expect(response.body).toMatchObject({
