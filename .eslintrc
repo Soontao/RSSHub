@@ -2,8 +2,7 @@
     "extends": [
         "eslint:recommended"
     ],
-    "plugins": [
-    ],
+    "plugins": [],
     "parserOptions": {
         "ecmaVersion": 2018,
         "sourceType": "module"
@@ -11,6 +10,9 @@
     "env": {
         "node": true,
         "es6": true
+    },
+    "globals": {
+        "fetch": true
     },
     "rules": {
         "quotes": [
