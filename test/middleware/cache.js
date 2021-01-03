@@ -17,7 +17,7 @@ describe('cache', () => {
         const v1 = uuid.v4();
         await cache.set(key, v1, 1); // remove after 1 seconds
         expect(await cache.get(key)).toBe(v1);
-        await wait(1 * 1000);
+        await wait(5 * 1000);
         expect(await cache.get(key)).toBeNull();
 
 
