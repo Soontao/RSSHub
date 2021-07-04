@@ -1,7 +1,7 @@
 # RSSHub
 
-![unit-test](https://github.com/Soontao/RSSHub/workflows/unit-test/badge.svg)
-[![Docker Cloud Build Status](https://img.shields.io/docker/cloud/build/theosun/rsshub)](https://hub.docker.com/r/theosun/rsshub)
+[![unit-test](https://github.com/Soontao/RSSHub/actions/workflows/unit-test.yml/badge.svg)](https://github.com/Soontao/RSSHub/actions/workflows/unit-test.yml)
+[![Docker Release](https://github.com/Soontao/RSSHub/actions/workflows/docker-release.yml/badge.svg)](https://github.com/Soontao/RSSHub/actions/workflows/docker-release.yml)
 
 [![Test coverage](https://img.shields.io/codecov/c/github/Soontao/RSSHub.svg?style=flat)](https://codecov.io/github/Soontao/RSSHub?branch=master)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=Soontao_RSSHub&metric=alert_status)](https://sonarcloud.io/dashboard?id=Soontao_RSSHub)
