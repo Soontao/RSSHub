@@ -12,7 +12,6 @@
         <atom:link href="{{ atomlink }}" rel="self" type="application/rss+xml" />
         <description><![CDATA[{{@ description || title }}]]></description>
         <generator>RSSHub</generator>
-        <webMaster>theo.sun@outlook.com (Theo Sun)</webMaster>
         {{ if itunes_author }}<itunes:author>{{ itunes_author}}</itunes:author>{{ /if }}
         {{ if itunes_category }}<itunes:category text="{{ itunes_category }}"/>{{ /if }}
         {{ if itunes_author }}<itunes:explicit>{{ itunes_explicit || 'clean' }}</itunes:explicit>{{ /if }}
