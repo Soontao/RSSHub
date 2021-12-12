@@ -12,7 +12,7 @@ services:
             PRE_FETCH: 'true'
             LOGGER_LEVEL: 'warn'
             CACHE_EXPIRE: 300 # 5 minutes
-            CACHE_CONTENT_EXPIRE: 432000 # 5 day
+            CACHE_CONTENT_EXPIRE: 7200 # 2 hours
             REDIS_URL: 'redis://redis:6379/'
             PUPPETEER_WS_ENDPOINT: 'ws://browserless:3000'
         depends_on:
