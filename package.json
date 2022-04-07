@@ -97,7 +97,7 @@
     "winston": "3.3.3"
   },
   "jest": {
-    "testTimeout": 30000,
+    "testTimeout": 45000,
     "testMatch": [
       "**/test/**/*.js"
     ],
