@@ -80,7 +80,7 @@
     "module-alias": "2.2.2",
     "moment": "^2.29.1",
     "node-cache": "^5.1.2",
-    "node-fetch": "^2.6.6",
+    "node-fetch": "^2.6.7",
     "parse-torrent": "^9.1.4",
     "pidusage": "2.0.21",
     "plist": "^0.3.3",
