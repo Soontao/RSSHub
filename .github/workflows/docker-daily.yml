@@ -1,4 +1,4 @@
-name: docker-release
+name: docker-daily-release
 
 on:
   schedule:
