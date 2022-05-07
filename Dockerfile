@@ -20,4 +20,4 @@ COPY . /app
 
 EXPOSE 1200
 
-CMD ["npm", "run", "start"]
+CMD ["node", "--max-old-space-size=250", "lib/index.js"]

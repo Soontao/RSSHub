@@ -3,6 +3,7 @@ name: docker-daily-release
 on:
   schedule:
     - cron: "2 12 * * *"
+  workflow_dispatch:
 
 jobs:
   deploy-daily:
