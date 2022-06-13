@@ -20,4 +20,4 @@ COPY . /app
 
 EXPOSE 1200
 
-CMD ["node", "--max-old-space-size=250", "lib/index.js"]
+CMD ["node", "-r", "./lib/tracing.js", "--max-old-space-size=250", "lib/index.js"]
