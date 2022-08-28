@@ -14,10 +14,10 @@ WORKDIR /app
 
 COPY package.json package-lock.json /app/
 
-RUN npm install --production;
+RUN npm install --production
 
 COPY . /app
 
 EXPOSE 1200
 
-CMD ["node", "-r", "./lib/tracing.js", "--max-old-space-size=250", "lib/index.js"]
+CMD ["node", "lib/index.js"]
