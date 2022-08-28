@@ -4,13 +4,13 @@
   "description": "Make RSS Great Again!",
   "private": true,
   "engines": {
-    "node": ">=10 <=16"
+    "node": ">=10"
   },
   "files": [
     "lib"
   ],
   "scripts": {
-    "start": "node --max-old-space-size=250 lib/index.js",
+    "start": "node lib/index.js",
     "dev": "cross-env NODE_ENV=dev nodemon --inspect lib/index.js",
     "lint": "eslint lib --fix --no-error-on-unmatched-pattern",
     "test": "cross-env NODE_ENV=test jest -w 4 --forceExit --coverage"
