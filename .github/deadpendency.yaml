@@ -1,0 +1,18 @@
+rules-config:
+  no-recent-package-release:
+    warn-at-months: 24
+    fail-at-months: disabled
+  no-recent-commit:
+    warn-at-months: 24
+    fail-at-months: disabled
+  few-yearly-commits:
+    warn-at-count: 24
+    fail-at-count: disabled # does not fail by default
+
+  # these can be 'disabled', 'warn' or 'fail'
+  repository-archived: disabled
+  repository-is-fork: disabled
+  package-deprecated: warn
+  single-recent-author: warn
+  repository-not-identified: warn
+  repository-not-found: warn
