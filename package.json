@@ -127,7 +127,8 @@
     ],
     "collectCoverageFrom": [
       "lib/**/*.js",
-      "!lib/routes/**/*.js"
+      "!lib/routes/**/*.js",
+      "!lib/customize/**/*.js"
     ],
     "bail": true,
     "testEnvironment": "node",
