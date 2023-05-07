@@ -105,6 +105,13 @@
     "twit": "2.2.11",
     "winston": "3.3.3"
   },
+  "overrides": {
+    "moment-timezone": "^0.5.35",
+    "uglify-js": "^3.13.10",
+    "moment": "^2.29.4",
+    "shelljs": "^0.8.5",
+    "nth-check": "^2.0.1"
+  },
   "jest": {
     "testTimeout": 45000,
     "testMatch": [
