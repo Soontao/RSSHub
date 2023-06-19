@@ -90,7 +90,6 @@
     "moment": "^2.29.4",
     "node-cache": "^5.1.2",
     "node-fetch": "^2.6.9",
-    "parse-torrent": "^9.1.5",
     "pidusage": "2.0.21",
     "plist": "^3.0.6",
     "puppeteer": "^20.1.1",
