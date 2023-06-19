@@ -1,7 +1,6 @@
 process.env.NODE_NAME = 'mock';
 
 const supertest = require('supertest');
-jest.mock('request-promise-native');
 const server = require('../../lib/index');
 const request = supertest(server);
 const cheerio = require('cheerio');

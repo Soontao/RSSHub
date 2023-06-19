@@ -1,5 +1,4 @@
 const supertest = require('supertest');
-jest.mock('request-promise-native');
 const Parser = require('rss-parser');
 const parser = new Parser();
 let server;

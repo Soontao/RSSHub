@@ -1,7 +1,6 @@
 const supertest = require('supertest');
 const md5 = require('../../lib/utils/md5');
 let server;
-jest.mock('request-promise-native');
 
 async function checkBlock(response) {
     expect(response.status).toBe(403);

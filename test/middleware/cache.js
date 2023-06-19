@@ -3,8 +3,6 @@ const { InMemoryCache } = require('../../lib/middleware/cache/memory');
 
 const wait = require('../../lib/utils/wait');
 const uuid = require('uuid');
-jest.mock('request-promise-native');
-
 
 describe('cache', () => {
 

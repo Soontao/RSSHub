@@ -1,7 +1,6 @@
 process.env.NODE_NAME = 'mock';
 
 const supertest = require('supertest');
-jest.mock('request-promise-native');
 const server = require('../../lib/index');
 const request = supertest(server);
 const config = require('../../lib/config').value;
@@ -24,7 +23,7 @@ describe('header', () => {
         etag = response.headers.etag;
     });
 
-    it(`etag`, async () => {
+    it('etag', async () => {
         const response = await request.get('/test/1').set('If-None-Match', etag);
         expect(response.status).toBe(304);
         expect(response.text).toBe('');
