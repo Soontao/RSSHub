@@ -14,7 +14,9 @@ WORKDIR /app
 
 COPY package.json package-lock.json /app/
 
-RUN npm install --production
+RUN npm i -g pnpm
+
+RUN pnpm i
 
 COPY . /app
 
