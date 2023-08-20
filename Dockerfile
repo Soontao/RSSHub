@@ -12,7 +12,7 @@ RUN apt-get update && apt-get install -yq libgconf-2-4 apt-transport-https git -
 
 WORKDIR /app
 
-COPY package.json package-lock.json /app/
+COPY package.json pnpm-lock.yaml /app/
 
 RUN npm i -g pnpm
 
