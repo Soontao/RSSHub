@@ -3,5 +3,8 @@
         "source.fixAll": "explicit"
     },
     "editor.formatOnSave": true,
-    "editor.formatOnSaveMode": "modifications"
+    "editor.formatOnSaveMode": "modifications",
+    "cSpell.words": [
+        "rsshub"
+    ]
 }
