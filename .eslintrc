@@ -16,7 +16,15 @@
   },
   "rules": {
     "quotes": [
-      "error"
+      "error",
+      "double",
+      {
+        "avoidEscape": true
+      }
+    ],
+    "indent": [
+      "error",
+      2
     ],
     "no-console": 2,
     "block-scoped-var": 2,
@@ -60,6 +68,7 @@
     "prettier/prettier": 0,
     "require-atomic-updates": 0,
     "no-prototype-builtins": 0,
-    "no-new-func": 2
+    "no-new-func": 2,
+    "no-mixed-spaces-and-tabs": 0
   }
 }
