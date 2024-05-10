@@ -1,13 +1,13 @@
-const { RedisCache } = require('../../lib/middleware/cache/redis');
-const { InMemoryCache } = require('../../lib/middleware/cache/memory');
+const { RedisCache } = require("../../lib/middleware/cache/redis");
+const { InMemoryCache } = require("../../lib/middleware/cache/memory");
 
-const wait = require('../../lib/utils/wait');
-const uuid = require('uuid');
+const wait = require("../../lib/utils/wait");
+const uuid = require("uuid");
 
-describe('cache', () => {
+describe("cache", () => {
 
-    it('memory', async () => {
-        process.env.CACHE_TYPE = 'memory';
+    it("memory", async () => {
+        process.env.CACHE_TYPE = "memory";
         const cache = new InMemoryCache();
 
         await cache.syncReady();
@@ -23,7 +23,7 @@ describe('cache', () => {
 
     if (process.env.REDIS_URL !== undefined) {
 
-        it('redis', async () => {
+        it("redis", async () => {
 
             const client = new RedisCache();
             await client.syncReady();

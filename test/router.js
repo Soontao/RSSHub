@@ -1,11 +1,11 @@
-process.env.SOCKET = 'socket';
+process.env.SOCKET = "socket";
 
-const supertest = require('supertest');
-const server = require('../lib/index');
+const supertest = require("supertest");
+const server = require("../lib/index");
 const request = supertest(server);
-const Parser = require('rss-parser');
+const Parser = require("rss-parser");
 const parser = new Parser();
-const config = require('../lib/config').value;
+const config = require("../lib/config").value;
 
 afterAll(() => {
     delete process.env.SOCKET;
@@ -25,11 +25,11 @@ async function checkRSS(response) {
 
     expect(parsed).toEqual(expect.any(Object));
     expect(parsed.title).toEqual(expect.any(String));
-    expect(parsed.title).not.toBe('RSSHub');
+    expect(parsed.title).not.toBe("RSSHub");
     expect(parsed.description).toEqual(expect.any(String));
     expect(parsed.link).toEqual(expect.any(String));
     expect(parsed.lastBuildDate).toEqual(expect.any(String));
-    expect(parsed.ttl).toEqual(((config.cache.routeExpire / 60) | 0) + '');
+    expect(parsed.ttl).toEqual(((config.cache.routeExpire / 60) | 0) + "");
     expect(parsed.items).toEqual(expect.any(Array));
     checkDate(parsed.lastBuildDate);
 
@@ -56,58 +56,58 @@ afterAll(() => {
     server.close();
 });
 
-describe('router', () => {
+describe("router", () => {
     // root
-    it('/', async () => {
-        const response = await request.get('/');
+    it("/", async () => {
+        const response = await request.get("/");
         expect(response.status).toBe(200);
-        expect(response.headers['content-type']).toBe('text/html; charset=UTF-8');
-        expect(response.headers['cache-control']).toBe('no-cache');
+        expect(response.headers["content-type"]).toBe("text/html; charset=UTF-8");
+        expect(response.headers["cache-control"]).toBe("no-cache");
     });
 
     // route
-    it('/test/1', async () => {
-        const response = await request.get('/test/1');
+    it("/test/1", async () => {
+        const response = await request.get("/test/1");
         expect(response.status).toBe(200);
 
         await checkRSS(response);
     });
 
     // robots.txt
-    it('/robots.txt', async () => {
+    it("/robots.txt", async () => {
         config.disallowRobot = false;
-        const response404 = await request.get('/robots.txt');
+        const response404 = await request.get("/robots.txt");
         expect(response404.status).toBe(404);
 
         config.disallowRobot = true;
-        const response = await request.get('/robots.txt');
+        const response = await request.get("/robots.txt");
         expect(response.status).toBe(200);
-        expect(response.text).toBe('User-agent: *\nDisallow: /');
-        expect(response.headers['content-type']).toBe('text/plain');
+        expect(response.text).toBe("User-agent: *\nDisallow: /");
+        expect(response.headers["content-type"]).toBe("text/plain");
     });
 
     // api
-    it('/api/routes/test', async () => {
-        const response = await request.get('/api/routes/test');
+    it("/api/routes/test", async () => {
+        const response = await request.get("/api/routes/test");
         expect(response.status).toBe(200);
         expect(response.body).toEqual({
             status: 0,
             data: {
                 test: {
-                    routes: ['/test/:id'],
+                    routes: ["/test/:id"],
                 },
             },
-            message: 'request returned 1 route',
+            message: "request returned 1 route",
         });
     });
-    it('/api/routes', async () => {
-        const response = await request.get('/api/routes');
+    it("/api/routes", async () => {
+        const response = await request.get("/api/routes");
         expect(response.status).toBe(200);
         expect(response.body).toMatchObject({
             status: 0,
             data: {
                 test: {
-                    routes: ['/test/:id'],
+                    routes: ["/test/:id"],
                 },
             },
             message: expect.stringMatching(/request returned (\d+) routes/),

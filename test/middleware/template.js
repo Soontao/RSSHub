@@ -1,16 +1,16 @@
-const supertest = require('supertest');
-const server = require('../../lib/index');
+const supertest = require("supertest");
+const server = require("../../lib/index");
 const request = supertest(server);
-const Parser = require('rss-parser');
+const Parser = require("rss-parser");
 const parser = new Parser();
 
 afterAll(() => {
     server.close();
 });
 
-describe('template', () => {
-    it('.rss', async() => {
-        const response1 = await request.get('/test/1.rss');
+describe("template", () => {
+    it(".rss", async() => {
+        const response1 = await request.get("/test/1.rss");
         const parsed1 = await parser.parseString(response1.text);
 
         expect(parsed1).toEqual(expect.any(Object));
@@ -31,8 +31,8 @@ describe('template', () => {
 
     });
 
-    it('.atom', async() => {
-        const response = await request.get('/test/1.atom');
+    it(".atom", async() => {
+        const response = await request.get("/test/1.atom");
         const parsed = await parser.parseString(response.text);
 
         expect(parsed).toEqual(expect.any(Object));
@@ -50,14 +50,14 @@ describe('template', () => {
         expect(parsed.items[0].id).toEqual(expect.any(String));
     });
 
-    it('.json', async() => {
-        const response = await request.get('/test/1.json');
+    it(".json", async() => {
+        const response = await request.get("/test/1.json");
         expect(response.status).toBe(500);
         expect(response.text).toMatch(/Error: <b>JSON output had been removed/);
     });
 
-    it('long title', async() => {
-        const response = await request.get('/test/long');
+    it("long title", async() => {
+        const response = await request.get("/test/long");
         const parsed = await parser.parseString(response.text);
         expect(parsed.items[0].title.length).toBe(153);
     });
