@@ -25,9 +25,8 @@ jobs:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
 
-    - run: npm i -g pnpm
-    - run: pnpm i
-    - run: pnpm test
+    - run: npm ci
+    - run: npm test
       env:
         REDIS_URL: redis://localhost:${{ job.services.redis.ports[6379] }}/
 

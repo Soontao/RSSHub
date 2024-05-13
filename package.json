@@ -4,9 +4,9 @@
   "description": "Make RSS Great Again!",
   "private": true,
   "engines": {
-    "node": ">=18"
+    "node": ">=18",
+    "npm": ">=9"
   },
-  "packageManager": "pnpm@9.1.0",
   "files": [
     "lib"
   ],
@@ -86,16 +86,6 @@
     "tough-cookie": "^4.1.4",
     "turndown": "^7.1.3",
     "winston": "3.3.3"
-  },
-  "pnpm": {
-    "overrides": {
-      "moment-timezone": "^0.5.43",
-      "uglify-js": "^3.13.10",
-      "moment": "^2.29.4",
-      "shelljs": "^0.8.5",
-      "nth-check": "^2.0.1",
-      "tough-cookie": "^4.1.3"
-    }
   },
   "jest": {
     "testTimeout": 45000,
