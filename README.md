@@ -1,7 +1,6 @@
 # RSSHub
 
 [![unit-test](https://github.com/Soontao/RSSHub/actions/workflows/unit-test.yml/badge.svg)](https://github.com/Soontao/RSSHub/actions/workflows/unit-test.yml)
-[![Docker Release](https://github.com/Soontao/RSSHub/actions/workflows/docker-release.yml/badge.svg)](https://github.com/Soontao/RSSHub/actions/workflows/docker-release.yml)
 [![docker-daily-release](https://github.com/Soontao/RSSHub/actions/workflows/docker-daily.yml/badge.svg)](https://github.com/Soontao/RSSHub/actions/workflows/docker-daily.yml)
 
 [![Test coverage](https://img.shields.io/codecov/c/github/Soontao/RSSHub.svg?style=flat)](https://codecov.io/github/Soontao/RSSHub?branch=master)
