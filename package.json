@@ -45,6 +45,7 @@
   "dependencies": {
     "@koa/router": "^12.0.1",
     "@newdash/newdash": "^5.22.1",
+    "@node-rs/jieba": "^1.10.3",
     "art-template": "4.13.2",
     "cheerio": "1.0.0-rc.12",
     "chrono-node": "^2.7.5",
