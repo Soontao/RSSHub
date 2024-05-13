@@ -15,6 +15,10 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2.3.4
 
+      # git rev-parse --short HEAD to lib/utils.version.js
+      - run: >
+          echo "module.exports = '$(git rev-parse --short HEAD)';" > lib/utils/version.js
+
       # https://github.com/docker/setup-qemu-action#usage
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v1.2.0

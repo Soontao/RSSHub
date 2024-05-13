@@ -4,15 +4,6 @@ const supertest = require("supertest");
 const server = require("../../lib/index");
 const request = supertest(server);
 const cheerio = require("cheerio");
-let gitHash;
-try {
-  gitHash = require("git-rev-sync").short();
-} catch (e) {
-  gitHash =
-    (process.env.HEROKU_SLUG_COMMIT &&
-      process.env.HEROKU_SLUG_COMMIT.slice(0, 7)) ||
-    "unknown";
-}
 
 afterAll(() => {
   server.close();
@@ -46,9 +37,6 @@ describe("debug", () => {
         case "Node Name:":
           expect(value).toBe("mock");
           break;
-        case "Git Hash:":
-          expect(value).toBe(gitHash);
-          break;
         case "Request Amount:":
           expect(value).toBe("8");
           break;
@@ -60,7 +48,7 @@ describe("debug", () => {
           break;
         case "Hot Paths:":
           expect(value).toBe(
-            "3  /test/1<br>2  /test/2<br>2  /test/empty<br>1  /<br>",
+            "3  /test/1<br>2  /test/2<br>2  /test/empty<br>1  /<br>"
           );
           break;
         case "Hot IP:":
