@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`anti-hotlink no-template 1`] = `
-"<p><a href="https://mock.com/DIYgod/RSSHub"></a><img src="https://mock.com/DIYgod/RSSHub.jpg" alt="" referrerpolicy="no-referrer"> alert(1); <a href="http://mock.com/DIYgod/RSSHub"></a><img src="https://mock.com/DIYgod/RSSHub.jpg" alt="" referrerpolicy="no-referrer">    <img src="http://mock.com/DIYgod/DIYgod/RSSHub" alt="" referrerpolicy="no-referrer"> <img src="https://mock.com/DIYgod/RSSHub.jpg" alt="" referrerpolicy="no-referrer"></p>
+"<p><a href="https://mock.com/DIYgod/RSSHub"></a><img src="https://mock.com/DIYgod/RSSHub.jpg" alt="" referrerpolicy="no-referrer"> <a href="http://mock.com/DIYgod/RSSHub"></a><img src="https://mock.com/DIYgod/RSSHub.jpg" alt="" referrerpolicy="no-referrer">    <img src="http://mock.com/DIYgod/DIYgod/RSSHub" alt="" referrerpolicy="no-referrer"> <img src="https://mock.com/DIYgod/RSSHub.jpg" alt="" referrerpolicy="no-referrer"></p>
 "
 `;
 
@@ -11,7 +11,7 @@ exports[`anti-hotlink no-template 2`] = `
 `;
 
 exports[`anti-hotlink template 1`] = `
-"<p><a href="https://mock.com/DIYgod/RSSHub"/><img src="https://i3.wp.com/mock.com/DIYgod/RSSHub.jpg" alt="" referrerpolicy="no-referrer"> alert(1); <a href="http://mock.com/DIYgod/RSSHub"/><img src="https://i3.wp.com/mock.com/DIYgod/RSSHub.jpg" alt="" referrerpolicy="no-referrer">    <img src="https://i3.wp.com/mock.com/DIYgod/DIYgod/RSSHub" alt="" referrerpolicy="no-referrer"> <img src="https://i3.wp.com/mock.com/DIYgod/RSSHub.jpg" alt="" referrerpolicy="no-referrer"/></img></img></img></p>
+"<p><a href="https://mock.com/DIYgod/RSSHub"/><img src="https://i3.wp.com/mock.com/DIYgod/RSSHub.jpg" alt="" referrerpolicy="no-referrer"> <a href="http://mock.com/DIYgod/RSSHub"/><img src="https://i3.wp.com/mock.com/DIYgod/RSSHub.jpg" alt="" referrerpolicy="no-referrer">    <img src="https://i3.wp.com/mock.com/DIYgod/DIYgod/RSSHub" alt="" referrerpolicy="no-referrer"> <img src="https://i3.wp.com/mock.com/DIYgod/RSSHub.jpg" alt="" referrerpolicy="no-referrer"/></img></img></img></p>
 "
 `;
 
@@ -21,7 +21,7 @@ exports[`anti-hotlink template 2`] = `
 `;
 
 exports[`anti-hotlink url 1`] = `
-"<p><a href="https://mock.com/DIYgod/RSSHub"/><img src="https://mock.com/DIYgod/RSSHub.jpg" alt="" referrerpolicy="no-referrer"> alert(1); <a href="http://mock.com/DIYgod/RSSHub"/><img src="https://mock.com/DIYgod/RSSHub.jpg" alt="" referrerpolicy="no-referrer">    <img src="http://mock.com/DIYgod/DIYgod/RSSHub" alt="" referrerpolicy="no-referrer"> <img src="https://mock.com/DIYgod/RSSHub.jpg" alt="" referrerpolicy="no-referrer"/></img></img></img></p>
+"<p><a href="https://mock.com/DIYgod/RSSHub"/><img src="https://mock.com/DIYgod/RSSHub.jpg" alt="" referrerpolicy="no-referrer"> <a href="http://mock.com/DIYgod/RSSHub"/><img src="https://mock.com/DIYgod/RSSHub.jpg" alt="" referrerpolicy="no-referrer">    <img src="http://mock.com/DIYgod/DIYgod/RSSHub" alt="" referrerpolicy="no-referrer"> <img src="https://mock.com/DIYgod/RSSHub.jpg" alt="" referrerpolicy="no-referrer"/></img></img></img></p>
 "
 `;
 
