@@ -50,7 +50,7 @@
     "cheerio": "1.0.0-rc.12",
     "chrono-node": "^2.7.5",
     "crypto-js": "^4.2.0",
-    "csv": "^6.3.8",
+    "csv": "^6.3.9",
     "currency-symbol-map": "4.0.4",
     "dayjs": "^1.11.11",
     "dotenv": "8.2.0",
