@@ -6,6 +6,7 @@
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "editor.formatOnSaveMode": "modifications",
   "cSpell.words": [
+    "DIFY",
     "qbitai",
     "rsshub"
   ]
