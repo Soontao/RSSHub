@@ -60,7 +60,7 @@
     "iconv-lite": "0.6.3",
     "is-localhost-ip": "1.4.0",
     "js-jieba": "^1.0.12",
-    "jsdom": "^24.0.0",
+    "jsdom": "^24.1.0",
     "json-bigint": "1.0.0",
     "json5": "^2.2.3",
     "koa": "^2.15.3",
