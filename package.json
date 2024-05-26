@@ -86,6 +86,9 @@
     "undici": "^6.18.1",
     "winston": "3.3.3"
   },
+  "overrides": {
+    "uglify-js": "^3.17.4"
+  },
   "jest": {
     "testTimeout": 45000,
     "testMatch": [
