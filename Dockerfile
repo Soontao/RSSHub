@@ -11,7 +11,7 @@ WORKDIR /app
 
 COPY package.json package-lock.json /app/
 
-RUN npm ci
+RUN npm ci --include prod
 
 COPY . /app
 
