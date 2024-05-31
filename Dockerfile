@@ -9,11 +9,11 @@ RUN ln -sf /bin/bash /bin/sh
 
 WORKDIR /app
 
-COPY package.json package-lock.json /app/
+COPY .npmrc package.json package-lock.json /app/
 
 RUN npm ci --include prod
 
-COPY . /app
+COPY lib /app/lib
 
 EXPOSE 1200
 
