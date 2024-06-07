@@ -48,7 +48,7 @@
     "@node-rs/jieba": "^1.10.3",
     "art-template": "4.13.2",
     "cheerio": "1.0.0-rc.12",
-    "chrono-node": "^2.7.5",
+    "chrono-node": "^2.7.6",
     "crypto-js": "^4.2.0",
     "csv": "^6.3.9",
     "currency-symbol-map": "4.0.4",
