@@ -1,4 +1,4 @@
-FROM node:lts-slim
+FROM node:20.15.0-slim
 
 LABEL MAINTAINER https://github.com/Soontao/RSSHub
 ENV NODE_ENV production
