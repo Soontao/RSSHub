@@ -43,6 +43,7 @@
     "uuid": "^9.0.1"
   },
   "dependencies": {
+    "@extractus/article-extractor": "^8.0.10",
     "@koa/router": "^12.0.1",
     "@newdash/newdash": "^5.23.1",
     "@node-rs/jieba": "^1.10.3",
