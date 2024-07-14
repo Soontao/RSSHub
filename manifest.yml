@@ -3,11 +3,11 @@ applications:
   - name: rsshub
     memory: 512M
     docker:
-        image: theosun/rsshub:latest
+      image: theosun/rsshub:latest
     env:
-        NODE_ENV: production
-        PRE_FETCH: 'true'
-        LOGGER_LEVEL: 'warn'
-        CACHE_EXPIRE: 300 # 5 minutes
-        CACHE_CONTENT_EXPIRE: 100000
+      NODE_ENV: production
+      PRE_FETCH: "true"
+      LOGGER_LEVEL: "warn"
+      CACHE_EXPIRE: 300 # 5 minutes
+      CACHE_CONTENT_EXPIRE: 100000
     random-route: true
