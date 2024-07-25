@@ -18,9 +18,9 @@
       "type": "node",
       "request": "launch",
       "name": "start-rsshub",
-      "skipFiles": [
-        "<node_internals>/**"
-      ],
+      "skipFiles": ["<node_internals>/**"],
+      "runtimeExecutable": "node",
+      "runtimeVersion": "18",
       "outputCapture": "std",
       "program": "${workspaceFolder}/lib/index.js",
       "envFile": "${workspaceFolder}/.env",
