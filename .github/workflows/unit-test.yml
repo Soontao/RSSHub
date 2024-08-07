@@ -28,6 +28,7 @@ jobs:
     - run: npm ci
     - run: npm test
       env:
+        RSSHUB_TEST: true
         REDIS_URL: redis://localhost:${{ job.services.redis.ports[6379] }}/
 
     - name: Coverage
