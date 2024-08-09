@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`common-utils htmlToMarkdown 1`] = `
+"hello
+====="
+`;
+
+exports[`common-utils markdownToHtml 1`] = `
+"<h1>hello</h1>
+"
+`;

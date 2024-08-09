@@ -20,7 +20,7 @@
       "name": "start-rsshub",
       "skipFiles": ["<node_internals>/**"],
       "runtimeExecutable": "node",
-      "runtimeVersion": "18",
+      "runtimeVersion": "20",
       "outputCapture": "std",
       "program": "${workspaceFolder}/lib/index.js",
       "envFile": "${workspaceFolder}/.env",
