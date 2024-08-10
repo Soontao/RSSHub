@@ -1,4 +1,5 @@
 const utils = require("../../lib/utils/common-utils");
+jest.mock("../../lib/utils/translate");
 
 describe("common-utils", () => {
   it("toTitleCase", async () => {
@@ -18,6 +19,7 @@ describe("common-utils", () => {
     const contentExtractor = jest.fn();
     const fetchText = jest.fn();
     const cache = { tryGet: jest.fn((key, runner) => runner()) };
+    const translate = require("../../lib/utils/translate");
 
     beforeEach(() => {
       jest.clearAllMocks();
@@ -98,6 +100,7 @@ describe("common-utils", () => {
       await handler(ctx);
       expect(ctx.state.data.item).toHaveLength(0);
     });
+
     it("createGenericEndpoint - remove texts", async () => {
       const handler = utils.createGenericEndpoint({
         endpointPath: "/test",
@@ -113,6 +116,37 @@ describe("common-utils", () => {
       const ctx = { state: {}, cache };
       await handler(ctx);
       expect(contentExtractor.mock.calls?.[0]?.[0].html()).toBe("<html><head></head><body><p>aaaa</p></body></html>");
+    });
+
+    it("createGenericEndpoint - language", async () => {
+      const handler = utils.createGenericEndpoint({
+        endpointPath: "/test",
+        entryUrl: "https://example.com",
+        fetchText,
+        linkExtractor,
+        contentExtractor,
+        language: "en",
+        maxItemsInList: 5,
+      });
+
+      const ctx = { state: {}, cache };
+      await handler(ctx);
+      expect(ctx.state.data.language).toBe("en");
+    });
+
+    it("createGenericEndpoint - translate", async () => {
+      const handler = utils.createGenericEndpoint({
+        endpointPath: "/test",
+        entryUrl: "https://example.com",
+        fetchText,
+        linkExtractor,
+        contentExtractor,
+        translateTitle: true,
+        maxItemsInList: 2,
+      });
+      const ctx = { state: {}, cache };
+      await handler(ctx);
+      expect(translate).toHaveBeenCalledTimes(2);
     });
   });
 });
