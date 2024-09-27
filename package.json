@@ -47,7 +47,7 @@
     "@koa/router": "^12.0.2",
     "@newdash/newdash": "^5.23.1",
     "@node-rs/jieba": "^1.10.3",
-    "@xmldom/xmldom": "^0.8.10",
+    "@xmldom/xmldom": "^0.9.1",
     "art-template": "4.13.2",
     "cheerio": "1.0.0-rc.12",
     "chrono-node": "^2.7.7",
