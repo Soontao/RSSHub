@@ -1,4 +1,4 @@
-FROM node:lts-slim
+FROM m.daocloud.io/node:lts-slim
 
 LABEL MAINTAINER=https://github.com/Soontao/RSSHub
 ENV NODE_ENV=production
