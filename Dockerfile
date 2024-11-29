@@ -1,4 +1,6 @@
 FROM m.daocloud.io/node:lts-slim
+ARG npm_config_registry=https://registry.npmjs.org/
+ENV npm_config_registry=${npm_config_registry}
 
 LABEL MAINTAINER=https://github.com/Soontao/RSSHub
 ENV NODE_ENV=production
