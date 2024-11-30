@@ -5,13 +5,6 @@
   "editor.formatOnSave": true,
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "editor.formatOnSaveMode": "modifications",
-  "cSpell.words": [
-    "DIFY",
-    "huxiu",
-    "Jina",
-    "Ollama",
-    "qbitai",
-    "Redirections",
-    "rsshub"
-  ]
+  "cSpell.words": ["DIFY", "huxiu", "Jina", "Ollama", "qbitai", "Redirections", "rsshub"],
+  "Codegeex.RepoIndex": true
 }

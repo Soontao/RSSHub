@@ -10,6 +10,13 @@ const toTitleCase = (str) =>
     .map((word) => word.replace(word[0], word[0].toUpperCase()))
     .join(" ");
 
+/**
+ * Extract links from a cheerio object
+ *
+ * @param {*} selector
+ * @param {*} prefix
+ * @returns
+ */
 function domAElementLinkExtractor(selector = "a", prefix = "") {
   return ($) =>
     $(selector)
@@ -74,6 +81,31 @@ function removeTexts($, texts) {
 }
 
 /**
+ * @typedef TextRetriever
+ * @type {(url:string, encoding:string)=>Promise<string>}
+ */
+
+/**
+ * @typedef LinkExtractor
+ * @type {(page: cheerio.Root) => Array<string>}
+ */
+
+/**
+ * @typedef LinkAndContentExtractor
+ * @type {(page: cheerio.Root) => Promise<Array<Partial<RSSHubArticle>>>}
+ */
+
+/**
+ * @typedef ContentExtractor
+ * @type {(page: cheerio.Root) => Promise<Partial<RSSHubArticle>>}
+ */
+
+/**
+ * @typedef JSONExtractor
+ * @type {(json: any)=>Promise<Partial<RSSHubArticle>>}
+ */
+
+/**
  * create a generic RSSHub endpoint
  *
  * @param {{
@@ -81,21 +113,21 @@ function removeTexts($, texts) {
  *  entryUrl:string|()=>string,
  *  feedTitle?:string,
  *  concurrency?:number,
- *  linkExtractor?:(page: cheerio.Root) => Array<string>,
- *  linkAndContentContentExtractor?:(page: cheerio.Root)=>Promise<Array<Partial<RSSHubArticle>>>,
- *  contentExtractor?:(page: cheerio.Root)=>Promise<Partial<RSSHubArticle>>,
- *  jsonExtractor?:(json: any)=>Promise<Partial<RSSHubArticle>>,
- *  maxItemsInList?:number,
- *  removeTexts?:Array<string>,
- *  fetchText?:(url:string, encoding:string)=>Promise<string>,
- *  skipPure?:boolean,
- *  translateTitle?:boolean,
+ *  linkExtractor?:LinkExtractor
+ *  linkAndContentContentExtractor?: LinkAndContentExtractor,
+ *  contentExtractor?: ContentExtractor,
+ *  jsonExtractor?: JSONExtractor,
+ *  maxItemsInList?: number,
+ *  removeTexts?: Array<string>,
+ *  fetchText?: TextRetriever,
+ *  skipPure?: boolean,
+ *  translateTitle?: boolean,
  *  language?: 'en'|'zh-cn', // https://www.rssboard.org/rss-language-codes
  * }} options
  * @returns
  */
 function createGenericEndpoint(options) {
-  options = Object.assign({}, createGenericEndpoint.default_options, options);
+  options = Object.assign({}, GENERIC_ENDPOINT_DEFAULT_OPTIONS, options);
   const { Semaphore, uniq } = require("@newdash/newdash");
   const moment = require("moment");
   const md5 = require("./md5");
@@ -134,47 +166,53 @@ function createGenericEndpoint(options) {
 
       logger.debug("links", links);
 
-      const items = await Promise.allSettled(links.map((link) => sem.use(() =>
-        ctx.cache.tryGet(link, async function retrieveArticle() {
-          try {
-            const content = await options.fetchText(link, options.encoding);
+      const items = await Promise.allSettled(
+        links.map((link) =>
+          sem.use(() =>
+            ctx.cache.tryGet(link, async function retrieveArticle() {
+              try {
+                const content = await options.fetchText(link, options.encoding);
 
-            const article = options.contentExtractor
-              ? await options.contentExtractor(removeTexts(cheerio.load(content), options.removeTexts))
-              : await options.jsonExtractor(JSON.parse(content));
+                const article = options.contentExtractor
+                  ? await options.contentExtractor(removeTexts(cheerio.load(content), options.removeTexts))
+                  : await options.jsonExtractor(JSON.parse(content));
 
-            if (article === undefined) {
-              logger.warn("no content for link", link, "extractor", options.contentExtractor?.name);
-              logger.debug("content is", content);
-              return undefined;
-            }
+                if (article === undefined) {
+                  logger.warn("no content for link", link, "extractor", options.contentExtractor?.name);
+                  logger.debug("content is", content);
+                  return undefined;
+                }
 
-            if (article.pubDate === undefined || article.pubDate === null) {
-              logger.warn("no pubDate for link", link);
-              return undefined;
-            }
+                if (article.pubDate === undefined || article.pubDate === null) {
+                  logger.warn("no pubDate for link", link);
+                  return undefined;
+                }
 
-            if (moment(article.pubDate).isBefore(moment().subtract(config.value.maxOldItemPubDateInDays, "day"))) {
-              logger.debug("article is too old", link, "option maxOldItemPubDateInDays is", config.value.maxOldItemPubDateInDays);
-              return undefined;
-            }
+                if (moment(article.pubDate).isBefore(moment().subtract(config.value.maxOldItemPubDateInDays, "day"))) {
+                  logger.debug("article is too old", link, "option maxOldItemPubDateInDays is", config.value.maxOldItemPubDateInDays);
+                  return undefined;
+                }
 
-            if (options.translateTitle) {
-              article.title = await translate(article.title);
-            }
+                if (options.translateTitle) {
+                  article.title = await translate(article.title);
+                }
 
-            const guid = md5(
-              [title, moment(new Date()).format("yyyy-MM"), article?.title?.trim()?.replace(/[^\w^\s^\u4e00-\u9fa5]/gi, "") ?? link].join("|")
-            );
+                const guid = md5(
+                  [
+                    title,
+                    moment(new Date()).format("yyyy-MM"),
+                    article?.title?.trim()?.replace(/[^\w^\s^\u4e00-\u9fa5]/gi, "") ?? link,
+                  ].join("|")
+                );
 
-            return Object.assign({}, article, { link, guid });
-          } catch (error) {
-            logger.error("fetch error", { error: error.message, cause: error.cause, link });
-            return undefined;
-          }
-        })
-      )
-      )
+                return Object.assign({}, article, { link, guid });
+              } catch (error) {
+                logger.error("fetch error", { error: error.message, cause: error.cause, link });
+                return undefined;
+              }
+            })
+          )
+        )
       );
       ctx.state.data.item = items.filter((item) => item.value !== undefined).map((item) => item.value);
     }
@@ -187,7 +225,7 @@ function createGenericEndpoint(options) {
   return handler;
 }
 
-createGenericEndpoint.default_options = {
+const GENERIC_ENDPOINT_DEFAULT_OPTIONS = {
   concurrency: 4,
   maxItemsInList: 15,
   encoding: "utf-8",
@@ -215,6 +253,184 @@ function markdownToHtml(markdown) {
   return marked.parse(markdown);
 }
 
+/**
+ * Build generic endpoint handler
+ */
+class GenericEndpointBuilder {
+  constructor() {
+    this.options = Object.assign({}, GENERIC_ENDPOINT_DEFAULT_OPTIONS);
+  }
+
+  /**
+   * 设置端点路径。
+   * @param {string} path - 端点路径。
+   * @returns {GenericEndpointBuilder} - 当前构建器实例，以便链式调用。
+   */
+  withEndpointPath(path) {
+    this.options.endpointPath = path;
+    return this;
+  }
+
+  /**
+   * 设置入口URL。
+   * @param {string} url - 入口URL。
+   * @returns {GenericEndpointBuilder} - 当前构建器实例，以便链式调用。
+   */
+  withEntryUrl(url) {
+    this.options.entryUrl = url;
+    return this;
+  }
+
+  /**
+   * 设置Feed标题
+   *
+   * @param {string} title - Feed标题。
+   * @returns {GenericEndpointBuilder} - 当前构建器实例，以便链式调用。
+   */
+  withFeedTitle(title) {
+    this.options.feedTitle = title;
+    return this;
+  }
+
+  /**
+   * 设置并发数
+   *
+   * @param {number} concurrency - 并发数。
+   * @returns {GenericEndpointBuilder} - 当前构建器实例，以便链式调用。
+   */
+  withConcurrency(concurrency) {
+    this.options.concurrency = concurrency;
+    return this;
+  }
+
+  /**
+   * 设置链接提取器。
+   * @param {Function} extractor - 链接提取器函数。
+   * @returns {GenericEndpointBuilder} - 当前构建器实例，以便链式调用。
+   */
+  withLinkExtractor(extractor) {
+    this.options.linkExtractor = extractor;
+    return this;
+  }
+
+  /**
+   *
+   * @param {string} selector
+   * @param {string?} prefix
+   * @returns
+   */
+  withDomAEleLinkExtractor(selector, prefix) {
+    return this.withLinkExtractor(domAElementLinkExtractor(selector, prefix));
+  }
+
+  /**
+   * 设置链接和内容提取器。
+   * @param {LinkAndContentExtractor} extractor - 链接和内容提取器函数。
+   * @returns {GenericEndpointBuilder} - 当前构建器实例，以便链式调用。
+   */
+  withLinkAndContentContentExtractor(extractor) {
+    this.options.linkAndContentContentExtractor = extractor;
+    return this;
+  }
+
+  /**
+   * 设置内容提取器。
+   * @param {ContentExtractor} extractor - 内容提取器函数。
+   * @returns {GenericEndpointBuilder} - 当前构建器实例，以便链式调用。
+   */
+  withContentExtractor(extractor) {
+    this.options.contentExtractor = extractor;
+    return this;
+  }
+
+  /**
+   * 设置JSON提取器。
+   *
+   * @param {JSONExtractor} extractor - JSON提取器函数。
+   * @returns {GenericEndpointBuilder} - 当前构建器实例，以便链式调用。
+   */
+  withJsonExtractor(extractor) {
+    this.options.jsonExtractor = extractor;
+    return this;
+  }
+
+  /**
+   * 设置列表中最大条目数。
+   *
+   * @param {number} maxItems - 最大条目数。
+   * @returns {GenericEndpointBuilder} - 当前构建器实例，以便链式调用。
+   */
+  withMaxItemsInList(maxItems) {
+    this.options.maxItemsInList = maxItems;
+    return this;
+  }
+
+  /**
+   * 设置要移除的文本。
+   *
+   * @param {string[]} texts - 要移除的文本数组。
+   * @returns {GenericEndpointBuilder} - 当前构建器实例，以便链式调用。
+   */
+  withRemoveTexts(texts) {
+    this.options.removeTexts = texts;
+    return this;
+  }
+
+  /**
+   * method to fetch text
+   *
+   * @param {any} fetchFunction - 获取文本的函数。
+   * @returns {GenericEndpointBuilder} - 当前构建器实例，以便链式调用。
+   */
+  withFetchText(fetchFunction) {
+    this.options.fetchText = fetchFunction;
+    return this;
+  }
+
+  /**
+   * use `pure` approach to clear text
+   *
+   * @param {boolean} skip
+   * @returns {GenericEndpointBuilder} - 当前构建器实例，以便链式调用。
+   */
+  withSkipPure(skip) {
+    this.options.skipPure = skip;
+    return this;
+  }
+
+  /**
+   * 设置是否翻译标题
+   *
+   * @param {boolean} translate - 是否翻译标题。
+   * @returns {GenericEndpointBuilder} - 当前构建器实例，以便链式调用。
+   */
+  withTranslateTitle(translate) {
+    this.options.translateTitle = translate;
+    return this;
+  }
+
+  /**
+   * 设置语言。
+   * @param {'en'|'zh-cn'} language - 语言代码。
+   * @returns {GenericEndpointBuilder} - 当前构建器实例，以便链式调用。
+   */
+  withLanguage(language) {
+    this.options.language = language;
+    return this;
+  }
+
+  /**
+   * 构建并返回 `createGenericEndpoint` 的参数对象。
+   */
+  build() {
+    return createGenericEndpoint(this.options);
+  }
+
+  static new() {
+    return new GenericEndpointBuilder();
+  }
+}
+
 module.exports = {
   toTitleCase,
   createGenericEndpoint,
@@ -230,4 +446,5 @@ module.exports = {
     jsContentExtractor,
     js: jsContentExtractor,
   },
+  GenericEndpointBuilder,
 };
