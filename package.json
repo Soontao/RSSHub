@@ -12,9 +12,7 @@
   ],
   "scripts": {
     "start": "node lib/index.js",
-    "dev": "cross-env NODE_ENV=dev nodemon --inspect lib/index.js",
-    "lint": "eslint lib --fix --no-error-on-unmatched-pattern",
-    "test": "cross-env NODE_ENV=test RSSHUB_TEST=true jest -w 4 --forceExit --coverage"
+    "dev": "cross-env NODE_ENV=dev nodemon --inspect lib/index.js"
   },
   "repository": {
     "type": "git",
@@ -89,28 +87,7 @@
   "overrides": {
     "uglify-js": "^3.17.4"
   },
-  "jest": {
-    "testTimeout": 45000,
-    "testMatch": [
-      "**/test/**/*.js"
-    ],
-    "testPathIgnorePatterns": [
-      "/node_modules/",
-      "/lib/"
-    ],
-    "coverageReporters": [
-      "text-summary",
-      "lcov"
-    ],
-    "collectCoverageFrom": [
-      "lib/**/*.js",
-      "!lib/routes/**/*.js",
-      "!lib/customize/**/*.js"
-    ],
-    "bail": true,
-    "testEnvironment": "node",
-    "moduleNameMapper": {
-      "@/(.*)": "<rootDir>/lib/$1"
-    }
-  }
+  "workspaces": [
+    "packages/rss-libs"
+  ]
 }

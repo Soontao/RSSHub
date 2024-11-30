@@ -1,0 +1,35 @@
+{
+  "name": "rss-libs",
+  "version": "1.0.0",
+  "devDependencies": {},
+  "scripts": {
+    "lint": "eslint lib --fix --no-error-on-unmatched-pattern",
+    "test": "cross-env NODE_ENV=test RSSHUB_TEST=true jest -w 4 --forceExit --coverage"
+  },
+  "author": "",
+  "description": "",
+  "jest": {
+    "testTimeout": 45000,
+    "testMatch": [
+      "**/test/**/*.js"
+    ],
+    "testPathIgnorePatterns": [
+      "/node_modules/",
+      "/lib/"
+    ],
+    "coverageReporters": [
+      "text-summary",
+      "lcov"
+    ],
+    "collectCoverageFrom": [
+      "lib/**/*.js",
+      "!lib/routes/**/*.js",
+      "!lib/customize/**/*.js"
+    ],
+    "bail": true,
+    "testEnvironment": "node",
+    "moduleNameMapper": {
+      "@/(.*)": "<rootDir>/lib/$1"
+    }
+  }
+}
