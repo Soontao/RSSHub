@@ -26,10 +26,6 @@
       "!lib/routes/**/*.js",
       "!lib/customize/**/*.js"
     ],
-    "bail": true,
-    "testEnvironment": "node",
-    "moduleNameMapper": {
-      "@/(.*)": "<rootDir>/lib/$1"
-    }
+    "testEnvironment": "node"
   }
 }

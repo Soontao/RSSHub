@@ -87,6 +87,26 @@
   "overrides": {
     "uglify-js": "^3.17.4"
   },
+  "jest": {
+    "testTimeout": 45000,
+    "testMatch": [
+      "**/test/**/*.js"
+    ],
+    "testPathIgnorePatterns": [
+      "/node_modules/",
+      "/lib/"
+    ],
+    "coverageReporters": [
+      "text-summary",
+      "lcov"
+    ],
+    "collectCoverageFrom": [
+      "lib/**/*.js",
+      "!lib/routes/**/*.js",
+      "!lib/customize/**/*.js"
+    ],
+    "testEnvironment": "node"
+  },
   "workspaces": [
     "packages/rss-libs"
   ]

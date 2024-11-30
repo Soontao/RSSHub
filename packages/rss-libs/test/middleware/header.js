@@ -1,7 +1,7 @@
 process.env.NODE_NAME = "mock";
 
 const supertest = require("supertest");
-const server = require("../../index");
+const server = require("../../../../lib/index");
 const request = supertest(server);
 const config = require("../../config").value;
 let etag;
