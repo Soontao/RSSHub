@@ -129,53 +129,47 @@ function createGenericEndpoint(options) {
 
       logger.debug("links", links);
 
-      const items = await Promise.allSettled(
-        links.map((link) =>
-          sem.use(() =>
-            ctx.cache.tryGet(link, async function retrieveArticle() {
-              try {
-                const content = await options.fetchText(link, options.encoding);
+      const items = await Promise.allSettled(links.map((link) => sem.use(() =>
+        ctx.cache.tryGet(link, async function retrieveArticle() {
+          try {
+            const content = await options.fetchText(link, options.encoding);
 
-                const article = options.contentExtractor
-                  ? await options.contentExtractor(removeTexts(cheerio.load(content), options.removeTexts))
-                  : await options.jsonExtractor(JSON.parse(content));
+            const article = options.contentExtractor
+              ? await options.contentExtractor(removeTexts(cheerio.load(content), options.removeTexts))
+              : await options.jsonExtractor(JSON.parse(content));
 
-                if (article === undefined) {
-                  logger.warn("no content for link", link, "extractor", options.contentExtractor?.name);
-                  logger.debug("content is", content);
-                  return undefined;
-                }
+            if (article === undefined) {
+              logger.warn("no content for link", link, "extractor", options.contentExtractor?.name);
+              logger.debug("content is", content);
+              return undefined;
+            }
 
-                if (article.pubDate === undefined || article.pubDate === null) {
-                  logger.warn("no pubDate for link", link);
-                  return undefined;
-                }
+            if (article.pubDate === undefined || article.pubDate === null) {
+              logger.warn("no pubDate for link", link);
+              return undefined;
+            }
 
-                if (moment(article.pubDate).isBefore(moment().subtract(config.value.maxOldItemPubDateInDays, "day"))) {
-                  logger.debug("article is too old", link, "option maxOldItemPubDateInDays is", config.value.maxOldItemPubDateInDays);
-                  return undefined;
-                }
+            if (moment(article.pubDate).isBefore(moment().subtract(config.value.maxOldItemPubDateInDays, "day"))) {
+              logger.debug("article is too old", link, "option maxOldItemPubDateInDays is", config.value.maxOldItemPubDateInDays);
+              return undefined;
+            }
 
-                if (options.translateTitle) {
-                  article.title = await translate(article.title);
-                }
+            if (options.translateTitle) {
+              article.title = await translate(article.title);
+            }
 
-                const guid = md5(
-                  [
-                    title,
-                    moment(new Date()).format("yyyy-MM"),
-                    article?.title?.trim()?.replace(/[^\w^\s^\u4e00-\u9fa5]/gi, "") ?? link,
-                  ].join("|")
-                );
+            const guid = md5(
+              [title, moment(new Date()).format("yyyy-MM"), article?.title?.trim()?.replace(/[^\w^\s^\u4e00-\u9fa5]/gi, "") ?? link].join("|")
+            );
 
-                return Object.assign({}, article, { link, guid });
-              } catch (error) {
-                logger.error("fetch error", { error: error.message, cause: error.cause, link });
-                return undefined;
-              }
-            })
-          )
-        )
+            return Object.assign({}, article, { link, guid });
+          } catch (error) {
+            logger.error("fetch error", { error: error.message, cause: error.cause, link });
+            return undefined;
+          }
+        })
+      )
+      )
       );
       ctx.state.data.item = items.filter((item) => item.value !== undefined).map((item) => item.value);
     }

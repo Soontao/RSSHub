@@ -2,6 +2,7 @@ const utils = require("../../utils/common-utils");
 jest.mock("../../utils/translate");
 
 describe("common-utils", () => {
+
   it("toTitleCase", async () => {
     expect(utils.toTitleCase("RSSHub IS AS aweSOme aS henry")).toBe("Rsshub Is As Awesome As Henry");
   });
@@ -149,4 +150,5 @@ describe("common-utils", () => {
       expect(translate).toHaveBeenCalledTimes(2);
     });
   });
+
 });
