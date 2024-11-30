@@ -21,7 +21,7 @@ describe("access-control", () => {
     const code = md5("/test/2" + key);
     process.env.BLACKLIST = "/test/1,233.233.233.233";
     process.env.ACCESS_KEY = key;
-    server = require("../../../../lib/index");
+    server = require("rss-server");
     const request = supertest(server);
 
     const response11 = await request.get("/test/1");
@@ -75,7 +75,7 @@ describe("access-control", () => {
     const code = md5("/test/2" + key);
     process.env.WHITELIST = "/test/1,233.233.233.233";
     process.env.ACCESS_KEY = key;
-    server = require("../../../../lib/index");
+    server = require("rss-server");
     const request = supertest(server);
 
     const response01 = await request.get("/");
@@ -130,7 +130,7 @@ describe("access-control", () => {
     const key = "1L0veRSSHub";
     const code = md5("/test/2" + key);
     process.env.ACCESS_KEY = key;
-    server = require("../../../../lib/index");
+    server = require("rss-server");
     const request = supertest(server);
 
     const response01 = await request.get("/");

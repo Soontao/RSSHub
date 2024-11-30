@@ -20,7 +20,7 @@
       "runtimeExecutable": "node",
       "runtimeVersion": "20",
       "outputCapture": "std",
-      "program": "${workspaceFolder}/lib/index.js",
+      "program": "${workspaceFolder}/packages/rss-server/index.js",
       "envFile": "${workspaceFolder}/.env",
       "env": {
         "NODE_ENV": "dev",
@@ -35,7 +35,7 @@
       "runtimeExecutable": "node",
       "runtimeVersion": "20",
       "outputCapture": "std",
-      "program": "${workspaceFolder}/lib/index.js",
+      "program": "${workspaceFolder}/packages/rss-server/index.js",
       "envFile": "${workspaceFolder}/.env",
       "env": {
         "NODE_ENV": "dev",

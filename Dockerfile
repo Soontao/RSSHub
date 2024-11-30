@@ -1,4 +1,5 @@
 FROM m.daocloud.io/node:lts-slim
+
 ARG npm_config_registry=https://registry.npmjs.org/
 ENV npm_config_registry=${npm_config_registry}
 
@@ -15,8 +16,8 @@ COPY .npmrc package.json package-lock.json /app/
 
 RUN npm ci --include prod
 
-COPY lib /app/lib
+COPY packages /app/packages
 
 EXPOSE 1200
 
-CMD ["node", "lib/index.js"]
+CMD ["node", "packages/rss-server"]

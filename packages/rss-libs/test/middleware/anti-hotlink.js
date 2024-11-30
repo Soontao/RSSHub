@@ -16,7 +16,7 @@ afterEach(() => {
 describe("anti-hotlink", () => {
   it("template", async () => {
     process.env.HOTLINK_TEMPLATE = "https://i3.wp.com/${host}${pathname}";
-    server = require("../../../../lib/index");
+    server = require("rss-server");
     const request = supertest(server);
 
     const response = await request.get("/test/complicated");
@@ -26,7 +26,7 @@ describe("anti-hotlink", () => {
   });
   it("url", async () => {
     process.env.HOTLINK_TEMPLATE = "${protocol}//${host}${pathname}";
-    server = require("../../../../lib/index");
+    server = require("rss-server");
     const request = supertest(server);
 
     const response = await request.get("/test/complicated");
@@ -36,7 +36,7 @@ describe("anti-hotlink", () => {
   });
   it("no-template", async () => {
     process.env.HOTLINK_TEMPLATE = "";
-    server = require("../../../../lib/index");
+    server = require("rss-server");
     const request = supertest(server);
 
     const response = await request.get("/test/complicated");

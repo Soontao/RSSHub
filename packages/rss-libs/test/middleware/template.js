@@ -1,5 +1,5 @@
 const supertest = require("supertest");
-const server = require("../../../../lib/index");
+const server = require("rss-server");
 const request = supertest(server);
 const Parser = require("rss-parser");
 const parser = new Parser();

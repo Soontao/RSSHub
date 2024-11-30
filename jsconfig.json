@@ -1,16 +1,4 @@
 {
-  "compilerOptions": {
-    "baseUrl": ".",
-    "paths": {
-      "@/*": [
-        "./lib/*"
-      ]
-    }
-  },
-  "include": [
-    "./lib/**/*"
-  ],
-  "exclude": [
-    "./lib/routes/**/*"
-  ]
+  "include": ["./packages/**/*"],
+  "exclude": ["./packages/rss-server/routes/**/*"]
 }

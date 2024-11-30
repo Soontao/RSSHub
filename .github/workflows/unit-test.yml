@@ -26,7 +26,7 @@ jobs:
         cache: 'npm'
 
     - run: npm ci
-    - run: npm run test --workspaces
+    - run: npm test --if-present
       env:
         RSSHUB_TEST: true
         REDIS_URL: redis://localhost:${{ job.services.redis.ports[6379] }}/

@@ -7,12 +7,9 @@
     "node": ">=18",
     "npm": ">=9"
   },
-  "files": [
-    "lib"
-  ],
   "scripts": {
-    "start": "node lib/index.js",
-    "dev": "cross-env NODE_ENV=dev nodemon --inspect lib/index.js"
+    "start": "node packages/rss-server/index.js",
+    "dev": "cross-env NODE_ENV=dev nodemon --inspect packages/rss-server/index.js"
   },
   "repository": {
     "type": "git",
@@ -108,6 +105,7 @@
     "testEnvironment": "node"
   },
   "workspaces": [
-    "packages/rss-libs"
+    "packages/rss-libs",
+    "packages/rss-server"
   ]
 }
