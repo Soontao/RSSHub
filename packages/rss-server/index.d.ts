@@ -45,6 +45,7 @@ declare global {
   export type RSSHubKoaContext = import("koa").ParameterizedContext<
     {
       data: ContextData;
+      skip_pure?: boolean;
     },
     {
       cache: ContextCache;

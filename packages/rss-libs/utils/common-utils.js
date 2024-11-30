@@ -101,6 +101,11 @@ function createGenericEndpoint(options) {
   const md5 = require("./md5");
   const sem = new Semaphore(options.concurrency);
 
+  /**
+   *
+   * @param {RSSHubKoaContext} ctx
+   * @returns
+   */
   const handler = async (ctx) => {
     const cheerio = require("cheerio");
     const entryUrlValue = typeof options.entryUrl === "function" ? options.entryUrl() : options.entryUrl;
@@ -120,7 +125,7 @@ function createGenericEndpoint(options) {
     ctx.state.skip_pure = options.skipPure;
 
     if (options.linkExtractor && (options.contentExtractor || options.jsonExtractor)) {
-      const links = uniq(options.linkExtractor($)).slice(0, options.maxItemsInList);
+      const links = uniq(options.linkExtractor($)).slice(0, Math.min(options.maxItemsInList, 100));
 
       if (links.length === 0) {
         logger.warn("no links found", { baseUrl: entryUrlValue });
