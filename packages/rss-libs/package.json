@@ -2,7 +2,12 @@
   "name": "rss-libs",
   "version": "1.0.0",
   "devDependencies": {
-    "cross-env": "^7.0.3"
+    "cross-env": "^7.0.3",
+    "jest": "^29.7.0",
+    "mockdate": "3.0.5",
+    "nock": "^13.5.6",
+    "supertest": "^7.0.0",
+    "uuid": "^9.0.1"
   },
   "dependencies": {
     "@extractus/article-extractor": "^8.0.16",
@@ -62,9 +67,8 @@
       "lcov"
     ],
     "collectCoverageFrom": [
-      "lib/**/*.js",
-      "!lib/routes/**/*.js",
-      "!lib/customize/**/*.js"
+      "**/*.js",
+      "!test/**/*.js"
     ],
     "testEnvironment": "node"
   }
