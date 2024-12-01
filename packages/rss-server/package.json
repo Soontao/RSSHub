@@ -1,5 +1,10 @@
 {
   "name": "rss-server",
+  "devDependencies": {
+    "@types/koa": "^2.15.0",
+    "cross-env": "^7.0.3",
+    "eslint-config-prettier": "^9.1.0"
+  },
   "dependencies": {
     "@koa/router": "^12.0.2",
     "@newdash/newdash": "^5.23.1",
