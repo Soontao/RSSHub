@@ -1,7 +1,9 @@
 {
   "name": "rss-libs",
   "version": "1.0.0",
-  "devDependencies": {},
+  "devDependencies": {
+    "cross-env": "^7.0.3"
+  },
   "dependencies": {
     "@extractus/article-extractor": "^8.0.16",
     "@newdash/newdash": "^5.23.1",
