@@ -1,3 +1,12 @@
 {
-  "name": "rss-server"
+  "name": "rss-server",
+  "dependencies": {
+    "@koa/router": "^12.0.2",
+    "@newdash/newdash": "^5.23.1",
+    "koa": "^2.15.3",
+    "koa-basic-auth": "4.0.0",
+    "koa-favicon": "2.1.0",
+    "koa-mount": "4.0.0",
+    "moment": "^2.30.1"
+  }
 }
