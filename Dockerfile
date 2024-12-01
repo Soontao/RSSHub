@@ -14,9 +14,9 @@ WORKDIR /app
 
 COPY .npmrc package.json package-lock.json /app/
 
-RUN npm ci --include prod
-
 COPY packages /app/packages
+
+RUN npm ci --include prod
 
 EXPOSE 1200
 
