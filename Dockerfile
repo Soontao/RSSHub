@@ -12,7 +12,7 @@ RUN npm config set registry https://registry.npmmirror.com
 COPY .npmrc package.json package-lock.json /app/
 COPY packages /app/packages
 
-RUN npm ci --include prod
+RUN npm ci --include prod --ws
 
 EXPOSE 1200
 
