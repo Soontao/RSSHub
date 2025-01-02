@@ -343,6 +343,10 @@ class GenericEndpointBuilder {
     return this;
   }
 
+  withAutoContentExtractor() {
+    return this.withContentExtractor(jsContentExtractor)
+  }
+
   /**
    * 设置JSON提取器。
    *
