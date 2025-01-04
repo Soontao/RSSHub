@@ -1,43 +1,35 @@
 const config = require("rss-libs/config").value;
-const fs = require("fs/promises");
 const { Cache } = require("./base");
 const os = require("os");
 const path = require("path");
-const md5 = require("rss-libs/utils/md5");
+const sqlite3 = require("better-sqlite3")
 
-const DEFAULT_OPTIONS = {
-  basePath: os.tmpdir(),
-  prefix: "rsshub_fs_cache_"
-};
+const DEFAULT_OPTIONS = { basePath: os.tmpdir() };
 
 class FileSystemCache extends Cache {
   constructor(options = {}) {
     super();
     this._options = Object.assign({}, DEFAULT_OPTIONS, options);
+    this._cache = new sqlite3(path.join(this._options.basePath, "rsshub_cache.db"))
+    this._cache.exec("CREATE TABLE IF NOT EXISTS CACHE (key TEXT PRIMARY KEY, value TEXT, expireAt INTEGER)")
+    setInterval(this.clearOutdatedCache.bind(this), 1000 * 60).unref()
   }
 
-  _getPath(key) {
-    return path.join(this._options.basePath, this._options.prefix + md5(key));
+  clearOutdatedCache() {
+    this._cache.prepare("DELETE FROM CACHE WHERE expireAt < ?").run([Date.now()])
   }
 
   async get(key) {
-    const file = this._getPath(key);
-    const exists = await fs.access(file).then(() => true).catch(() => false);
-    if (!exists) {
-      return null;
+    const row = this._cache.prepare("SELECT * FROM CACHE WHERE key = ? AND expireAt > ?").get([key, Date.now()])
+    if (!row) {
+      return null
     }
-    const value = JSON.parse(await fs.readFile(file, "utf-8"));
-    if (value.expireAt < Date.now()) {
-      await fs.unlink(file);
-      return null;
-    }
-    return value.value;
+    return JSON.parse(row?.value ?? {})?.value
   }
 
   async set(key, value, maxAge = config.cache.contentExpire) {
-    const file = this._getPath(key);
     const expireAt = Date.now() + maxAge * 1000;
-    await fs.writeFile(file, JSON.stringify({ value, expireAt }), "utf-8");
+    this._cache.prepare("INSERT OR REPLACE INTO CACHE (key, value, expireAt) VALUES (?, ?, ?)").run([key, JSON.stringify({ value, expireAt }), expireAt])
   }
 }
 
