@@ -29,7 +29,7 @@ class FileSystemCache extends Cache {
 
   async set(key, value, maxAge = config.cache.contentExpire) {
     const expireAt = Date.now() + maxAge * 1000;
-    this._cache.prepare("INSERT OR REPLACE INTO CACHE (key, value, expireAt) VALUES (?, ?, ?)").run([key, JSON.stringify({ value, expireAt }), expireAt])
+    this._cache.prepare("INSERT OR REPLACE INTO CACHE (key, value, expireAt) VALUES (?, ?, ?)").run([key, JSON.stringify({ value }), expireAt])
   }
 }
 
