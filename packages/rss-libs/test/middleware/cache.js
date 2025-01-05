@@ -29,6 +29,18 @@ describe("cache test suite", () => {
     expect(await cache.get(key)).toBeNull();
   });
 
+  it("should support fs system cache (update)", async () => {
+    const cache = new FileSystemCache();
+    await cache.syncReady();
+    const key = uuid.v4();
+    const v1 = uuid.v4();
+    await cache.set(key, v1, 0.5);
+    expect(await cache.get(key)).toBe(v1);
+    await cache.set(key, v1 + "2", 0.5);
+    expect(await cache.get(key)).toBe(v1 + "2");
+  });
+
+
   if (process.env.REDIS_URL !== undefined) {
     it("should support redis cache", async () => {
       const client = new RedisCache();
