@@ -339,7 +339,15 @@ class GenericEndpointBuilder {
    * @returns {GenericEndpointBuilder} - 当前构建器实例，以便链式调用。
    */
   withContentExtractor(extractor) {
-    this.options.contentExtractor = extractor;
+    if (!this.options.contentExtractor) {
+      this.options.contentExtractor = extractor;
+    } else {
+      const e0 = this.options.contentExtractor;
+      this.options.contentExtractor = async (...args) => {
+        return Object.assign({}, await e0(...args), await extractor(...args))
+      }
+    }
+
     return this;
   }
 
