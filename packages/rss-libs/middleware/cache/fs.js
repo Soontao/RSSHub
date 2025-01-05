@@ -24,7 +24,7 @@ class FileSystemCache extends Cache {
     if (!row) {
       return null
     }
-    return JSON.parse(row?.value ?? {})?.value
+    return JSON.parse(row?.value ?? '{}')?.value
   }
 
   async set(key, value, maxAge = config.cache.contentExpire) {
