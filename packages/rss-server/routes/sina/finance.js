@@ -9,7 +9,7 @@ module.exports = async (ctx) => {
   const response = await got.get(url);
   const list = response.data.result.data;
 
-  const out = await Promise.all(
+  let out = await Promise.all(
     list.map(async (data) => {
       const title = data.title;
       const link = data.url;
@@ -32,11 +32,13 @@ module.exports = async (ctx) => {
           description: $("#artibody").html(),
           author: $(".source.ent-source").text(),
           // 2020年08月31日 12:56
-          pubDate: moment(sDate, "YYYY年MM月DD日 hh:mm"),
+          pubDate: moment(sDate, "YYYY年MM月DD日 hh:mm").toISOString(),
         };
       });
     }),
   );
+
+  out = out.filter(item => moment(item.pubDate).isBefore(moment().subtract(15, 'minutes')))
 
   ctx.state.data = {
     title: "新浪财经－国內",
