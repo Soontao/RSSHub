@@ -15,6 +15,10 @@ router.get("/robots.txt", async (ctx) => {
   }
 });
 
+router.get('/health', ctx => {
+  ctx.body = { status: 'ok' };
+})
+
 router.use(mount("/", require("./customize").routes()));
 
 // index

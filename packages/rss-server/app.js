@@ -31,8 +31,6 @@ process.on("uncaughtException", (e) => {
 const app = new Koa();
 app.proxy = true;
 
-app.use(health)
-
 // favicon
 app.use(favicon(__dirname + "/favicon.png"));
 
