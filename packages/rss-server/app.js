@@ -22,6 +22,7 @@ const apiTemplate = require("rss-libs/middleware/api-template");
 const api_router = require("./api_router");
 const apiResponseHandler = require("rss-libs/middleware/api-response-handler");
 const pure = require("rss-libs/middleware/pure");
+const health = require("rss-libs/middleware/health");
 
 process.on("uncaughtException", (e) => {
   logger.error("uncaughtException: " + e);
@@ -29,6 +30,8 @@ process.on("uncaughtException", (e) => {
 
 const app = new Koa();
 app.proxy = true;
+
+app.use(health)
 
 // favicon
 app.use(favicon(__dirname + "/favicon.png"));
