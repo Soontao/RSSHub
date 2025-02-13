@@ -1,4 +1,7 @@
-FROM m.daocloud.io/node:lts-slim
+FROM node:lts-slim
+
+RUN apt update
+RUN apt install -y curl
 
 LABEL MAINTAINER=https://github.com/Soontao/RSSHub
 ENV NODE_ENV=production
