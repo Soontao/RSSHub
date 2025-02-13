@@ -1,5 +1,8 @@
 FROM node:lts-slim
 
+RUN apt update
+RUN apt install -y curl
+
 LABEL MAINTAINER=https://github.com/Soontao/RSSHub
 ENV NODE_ENV=production
 ENV TZ=Asia/Shanghai
