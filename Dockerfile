@@ -10,6 +10,7 @@ ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true
 
 WORKDIR /app
 
+ENV npm_config_better_sqlite3_binary_host_mirror=https://registry.npmmirror.com/-/binary/better-sqlite3
 RUN npm config set registry https://registry.npmmirror.com
 
 COPY .npmrc package.json package-lock.json /app/
