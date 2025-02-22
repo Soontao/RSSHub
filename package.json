@@ -23,8 +23,6 @@
     "url": "https://github.com/Soontao/RSSHub/issues"
   },
   "homepage": "https://github.com/Soontao/RSSHub#readme",
-  "devDependencies": {},
-  "dependencies": {},
   "overrides": {},
   "jest": {
     "testTimeout": 45000,
