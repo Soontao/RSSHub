@@ -4,6 +4,7 @@ module.exports = createGenericEndpoint({
   feedTitle: "界面新闻",
   entryUrl: "https://www.jiemian.com/",
   endpointPath: "/news/jiemian",
+  atLeastPublishedInMinutes: 5,
   linkExtractor: ($) =>
     $("a[content_type='article']")
       .map((_, item) => $(item).attr("content_id"))

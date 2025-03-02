@@ -106,24 +106,28 @@ function removeTexts($, texts) {
  */
 
 /**
+ * @typedef GenericHandlerParams
+ * @property {string} endpointPath
+ * @property {string|()=>string} entryUrl
+ * @property {string} [feedTitle]
+ * @property {number} [concurrency] concurrency
+ * @property {LinkExtractor} [linkExtractor]
+ * @property {LinkAndContentExtractor} [linkAndContentContentExtractor]
+ * @property {ContentExtractor} [contentExtractor]
+ * @property {JSONExtractor} [jsonExtractor]
+ * @property {number} [maxItemsInList]
+ * @property {Array<string>} [removeTexts]
+ * @property {TextRetriever} [fetchText]
+ * @property {boolean} [skipPure] skip pure/clean up text
+ * @property {boolean} [translateTitle]
+ * @property {'en'|'zh-cn'} [language]
+ * @property {number} [atLeastPublishedInMinutes] bring feed entry to list when its at least published after minutes
+ */
+
+/**
  * create a generic RSSHub endpoint
  *
- * @param {{
- *  endpointPath: string,
- *  entryUrl:string|()=>string,
- *  feedTitle?:string,
- *  concurrency?:number,
- *  linkExtractor?:LinkExtractor
- *  linkAndContentContentExtractor?: LinkAndContentExtractor,
- *  contentExtractor?: ContentExtractor,
- *  jsonExtractor?: JSONExtractor,
- *  maxItemsInList?: number,
- *  removeTexts?: Array<string>,
- *  fetchText?: TextRetriever,
- *  skipPure?: boolean,
- *  translateTitle?: boolean,
- *  language?: 'en'|'zh-cn', // https://www.rssboard.org/rss-language-codes
- * }} options
+ * @param {GenericHandlerParams} options
  * @returns
  */
 function createGenericEndpoint(options) {
@@ -198,6 +202,11 @@ function createGenericEndpoint(options) {
                   return undefined;
                 }
 
+                if (options.atLeastPublishedInMinutes && moment(article.pubDate).isAfter(moment().subtract(options.atLeastPublishedInMinutes, 'minutes'))) {
+                  logger.debug("article is too new", link, "option atLeastPublishedInMinutes is", options.atLeastPublishedInMinutes);
+                  return undefined;
+                }
+
                 if (options.translateTitle) {
                   article.title = await translate(article.title);
                 }
@@ -237,6 +246,7 @@ const GENERIC_ENDPOINT_DEFAULT_OPTIONS = {
   fetchText: require("./http").fetchText,
   removeTexts: [],
   language: "zh-cn",
+  atLeastPublishedInMinutes: 0.5,
 };
 
 /**
