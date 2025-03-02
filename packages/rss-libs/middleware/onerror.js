@@ -8,7 +8,9 @@ module.exports = async (ctx, next) => {
       `Error in ${ctx.request.path}: [${err.constructor.name}] ${err.message}`,
     );
     logger.error(err.stack);
-
+    if (err.cause) {
+      logger.error("Caused by:", err.cause);
+    }
     const status = err.status || 500;
 
     ctx.body = {
