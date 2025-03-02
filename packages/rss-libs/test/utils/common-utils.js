@@ -35,7 +35,7 @@ describe("common-utils", () => {
         "https://example.com/6",
       ]);
       contentExtractor.mockImplementation(() => ({
-        title: "hello",
+        title: "hello" + Math.random() * 1000000,
         link: "https://example.com/1",
         description: "hello",
         author: "henry",
@@ -52,6 +52,7 @@ describe("common-utils", () => {
         linkExtractor,
         contentExtractor,
         maxItemsInList: 5,
+        atLeastPublishedInMinutes: 0
       });
 
       const ctx = { state: {}, cache };
@@ -144,6 +145,7 @@ describe("common-utils", () => {
         contentExtractor,
         translateTitle: true,
         maxItemsInList: 2,
+        atLeastPublishedInMinutes: 0
       });
       const ctx = { state: {}, cache };
       await handler(ctx);
