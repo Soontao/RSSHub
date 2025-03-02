@@ -128,7 +128,7 @@ function removeTexts($, texts) {
  */
 function createGenericEndpoint(options) {
   options = Object.assign({}, GENERIC_ENDPOINT_DEFAULT_OPTIONS, options);
-  const { Semaphore, uniq } = require("@newdash/newdash");
+  const { Semaphore, uniq, uniqBy } = require("@newdash/newdash");
   const moment = require("moment");
   const md5 = require("./md5");
   const sem = new Semaphore(options.concurrency);
@@ -188,6 +188,11 @@ function createGenericEndpoint(options) {
                   return undefined;
                 }
 
+                if (article.title == undefined || article.description == undefined) {
+                  logger.warn("no title or description for link", link);
+                  return undefined;
+                }
+
                 if (moment(article.pubDate).isBefore(moment().subtract(config.value.maxOldItemPubDateInDays, "day"))) {
                   logger.debug("article is too old", link, "option maxOldItemPubDateInDays is", config.value.maxOldItemPubDateInDays);
                   return undefined;
@@ -214,7 +219,7 @@ function createGenericEndpoint(options) {
           )
         )
       );
-      ctx.state.data.item = items.filter((item) => item.value !== undefined).map((item) => item.value);
+      ctx.state.data.item = uniqBy(items.filter((item) => item.value !== undefined).map((item) => item.value), item => item.title?.replace(/[^\w\u4e00-\u9fa5]/g, ''));
     }
 
     if (options.linkAndContentContentExtractor) {
