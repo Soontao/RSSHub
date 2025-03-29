@@ -18,6 +18,7 @@
       "name": "start-rsshub",
       "skipFiles": ["<node_internals>/**"],
       "runtimeExecutable": "node",
+      "runtimeArgs": ["--max-old-space-size=300"],
       "runtimeVersion": "22",
       "outputCapture": "std",
       "program": "${workspaceFolder}/packages/rss-server/index.js",

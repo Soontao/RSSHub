@@ -6,6 +6,7 @@ module.exports = createGenericEndpoint({
   endpointPath: "/3dm/news",
   entryUrl: "http://www.3dmgame.com/news/",
   feedTitle: "3DM游戏网",
+  maxItemsInList: 5,
   linkExtractor: ($) =>
     $(".Revision_list .selectpost")
       .get()

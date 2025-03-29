@@ -115,7 +115,7 @@ function removeTexts($, texts) {
  * @property {LinkAndContentExtractor} [linkAndContentContentExtractor]
  * @property {ContentExtractor} [contentExtractor]
  * @property {JSONExtractor} [jsonExtractor]
- * @property {number} [maxItemsInList]
+ * @property {number} [maxItemsInList=15]
  * @property {Array<string>} [removeTexts]
  * @property {TextRetriever} [fetchText]
  * @property {boolean} [skipPure] skip pure/clean up text
