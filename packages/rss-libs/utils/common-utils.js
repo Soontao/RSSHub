@@ -75,8 +75,13 @@ async function jsContentExtractor(page) {
  * @param {cheerio.Root} $
  * @param {Array<string>} texts
  */
-function removeTexts($, texts) {
+function removeTexts($, texts = []) {
   texts.forEach((text) => $(`p:contains("${text}")`).remove());
+  return $;
+}
+
+function removeSelectors($, selectors = []) {
+  selectors.forEach((selector) => $(selector).remove());
   return $;
 }
 
@@ -117,6 +122,7 @@ function removeTexts($, texts) {
  * @property {JSONExtractor} [jsonExtractor]
  * @property {number} [maxItemsInList=15]
  * @property {Array<string>} [removeTexts]
+ * @property {Array<string>} [removeSelectors]
  * @property {TextRetriever} [fetchText]
  * @property {boolean} [skipPure] skip pure/clean up text
  * @property {boolean} [translateTitle]
@@ -151,11 +157,7 @@ function createGenericEndpoint(options) {
     const title = options?.feedTitle ?? $("title").text();
 
     ctx.state.data = {
-      title,
-      link: entryUrlValue,
-      item: [],
-      allowEmpty: true,
-      language: options.language,
+      title, link: entryUrlValue, item: [], allowEmpty: true, language: options.language,
     };
 
     ctx.state.skip_pure = options.skipPure;
@@ -176,9 +178,8 @@ function createGenericEndpoint(options) {
             ctx.cache.tryGet(link, async function retrieveArticle() {
               try {
                 const content = await options.fetchText(link, options.encoding);
-
                 const article = options.contentExtractor
-                  ? await options.contentExtractor(removeTexts(cheerio.load(content), options.removeTexts))
+                  ? await options.contentExtractor(removeSelectors(removeTexts(cheerio.load(content), options.removeTexts), options.removeSelectors))
                   : await options.jsonExtractor(JSON.parse(content));
 
                 if (article === undefined) {
@@ -211,12 +212,10 @@ function createGenericEndpoint(options) {
                   article.title = await translate(article.title);
                 }
 
+                const normalizedTitle = article?.title?.trim()?.replace(/[^\w^\s^\u4e00-\u9fa5]/gi, "")
+
                 const guid = md5(
-                  [
-                    title,
-                    moment(new Date()).format("yyyy-MM"),
-                    article?.title?.trim()?.replace(/[^\w^\s^\u4e00-\u9fa5]/gi, "") ?? link,
-                  ].join("|")
+                  [title, moment().format("yyyy-MM-dd"), normalizedTitle ?? link].join("|")
                 );
 
                 return Object.assign({}, article, { link, guid });
@@ -402,6 +401,12 @@ class GenericEndpointBuilder {
     this.options.removeTexts = texts;
     return this;
   }
+
+  withRemoveSelectors(selectors) {
+    this.options.removeSelectors = selectors;
+    return this;
+  }
+
 
   /**
    * method to fetch text
