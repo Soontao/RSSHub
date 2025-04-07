@@ -5,10 +5,9 @@ const endpoint = createGenericEndpoint({
   endpointPath: "/cnn-business",
   entryUrl: "https://edition.cnn.com/business",
   skipPure: true,
-  translateTitle: true,
-  language: "en",
+  maxItemsInList: 10,
+  concurrency: 3,
   linkExtractor: linkExtractors.domAElementLinkExtractor("a.container__link--type-article", "https://edition.cnn.com"),
-  fetchText: fetchTextWithCrossWallProxy,
   contentExtractor: async ($) => {
     const moment = require("moment");
     const author = $(".byline__name").text().trim();
