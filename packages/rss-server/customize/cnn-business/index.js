@@ -1,5 +1,4 @@
 const { createGenericEndpoint, linkExtractors } = require("rss-libs/utils/common-utils");
-const { fetchTextWithCrossWallProxy } = require("rss-libs/utils/http");
 
 const endpoint = createGenericEndpoint({
   endpointPath: "/cnn-business",
