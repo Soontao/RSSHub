@@ -239,7 +239,7 @@ function createGenericEndpoint(options) {
 }
 
 const GENERIC_ENDPOINT_DEFAULT_OPTIONS = {
-  concurrency: 4,
+  concurrency: config.value.defaultConcurrency,
   maxItemsInList: 15,
   encoding: "utf-8",
   fetchText: require("./http").fetchText,

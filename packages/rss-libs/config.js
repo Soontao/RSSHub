@@ -26,11 +26,10 @@ const value = {
     // 不变内容缓存时间，单位为秒
     contentExpire: parseInt(envs.CACHE_CONTENT_EXPIRE, 10) || 15 * 24 * 60 * 60,
   },
+  defaultConcurrency: parseInt(envs.DEFAULT_CONCURRENCY ?? 4), // 并发请求数
   longWarningThreshold: parseFloat(envs.LONG_WARNING_THRESHOLD, 10) || 5, // in seconds
   prefetch: Boolean(envs.PRE_FETCH),
-  ua:
-    envs.UA ||
-    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/127.0.0.0 Safari/537.36",
+  ua: envs.UA || "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/127.0.0.0 Safari/537.36",
   listenInaddrAny: envs.LISTEN_INADDR_ANY || 1, // 是否允许公网连接，取值 0 1
   requestRetry: parseInt(envs.REQUEST_RETRY) || 2, // 请求失败重试次数
   // 是否显示 Debug 信息，取值 boolean 'false' 'key' ，取值为 'false' false 时永远不显示，取值为 'key' 时带上 ?debug=key 显示
