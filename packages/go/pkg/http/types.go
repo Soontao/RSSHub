@@ -15,7 +15,7 @@ func DefaultClientOptions() *ClientOptions {
 	return &ClientOptions{
 		Timeout:       30,
 		MaxRetries:    3,
-		UserAgent:     "RSSHub/2.0 (+https://theosun/RSSHub)",
+		UserAgent:     "RSSHub Native/3.0 (+https://theosun/RSSHub)",
 		AllowedCodes:  []int{200},
 		RetryOnCodes:  []int{408, 429, 500, 502, 503, 504},
 		DefaultParams: make(map[string]string),
