@@ -19,21 +19,6 @@ func AppinnSubscription() gin.HandlerFunc {
 	b.WithRemoveSelectors([]string{"#sidebar", ".post-meta", ".post-tags"})
 	b.WithLanguage("zh-cn")
 	b.WithDomLinkExtractor(".post-data a", "")
-
-	//   contentExtractor: ($) => {
-	// const content = $(".post-single-content");
-	// content.find(".simplefavorite-button").remove();
-	// content.find(".wpulike").remove();
-
-	//     return {
-	//       title: $(".title").text(),
-	//       // 2024-10-29T17:10:11+08:00
-	//       pubDate: moment($("head > meta[property='article:published_time']").attr("content"), "YYYY-MM-DDTHH:mm:ssZ").toDate(),
-	//       author: $(".theauthor a").text(),
-	//       description: content.html(),
-	//     };
-	//   },
-
 	b.WithContentExtractor(func(html string) (*feed.FeedItem, error) {
 		doc, err := goquery.NewDocumentFromReader(strings.NewReader(html))
 		if err != nil {
