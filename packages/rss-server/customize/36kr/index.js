@@ -74,7 +74,7 @@ const endpoint = async (ctx) => {
   const newsUrl = "https://36kr.com" + cfg.link;
   const response = await fetchText(newsUrl);
 
-  const data = JSON.parse(response.match(/<script>window\.initialState=(.*?)<\/script>/)[1]);
+  const data = JSON.parse(response.match(/<script async>window\.initialState=(.*?)<\/script>/)[1]);
 
   const informationList = data.information.informationList.itemList
     .filter((item) => item.itemType === 10)
