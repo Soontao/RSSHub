@@ -42,7 +42,7 @@ func DefaultConfig() *Config {
 
 	// Server defaults
 	config.Server.Port = 1200
-	config.Server.Host = "0.0.0.0"
+	config.Server.Host = "127.0.0.1"
 	config.Server.BaseURL = "http://localhost:1200"
 	config.Server.TrustedProxies = []string{"127.0.0.1"}
 
@@ -53,7 +53,7 @@ func DefaultConfig() *Config {
 	config.Cache.CleanupInterval = 3600 // 1 hour
 
 	// Feed defaults
-	config.Feed.MaxItems = 15
+	config.Feed.MaxItems = 30
 	config.Feed.DefaultConcurrency = 5
 	config.Feed.MaxOldItemDays = 30
 	config.Feed.MinPublishInterval = 0.5

@@ -6,5 +6,8 @@
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "editor.formatOnSaveMode": "modifications",
   "cSpell.words": ["DIFY", "huxiu", "Jina", "Ollama", "qbitai", "Redirections", "rsshub"],
-  "Codegeex.RepoIndex": true
+  "Codegeex.RepoIndex": true,
+  "[go]": {
+    "editor.defaultFormatter": "golang.go"
+  }
 }

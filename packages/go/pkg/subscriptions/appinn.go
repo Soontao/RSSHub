@@ -12,7 +12,7 @@ import (
 func AppinnSubscription() gin.HandlerFunc {
 	b := feed.NewBuilder()
 	b.WithEntryURL("https://www.appinn.com/")
-	b.WithFeedTitle("Appinn")
+	b.WithFeedTitle("小众软件")
 	b.WithConcurrency(5)
 	b.WithMaxItems(15)
 	b.WithRemoveTexts([]string{"广告", "推广"})
