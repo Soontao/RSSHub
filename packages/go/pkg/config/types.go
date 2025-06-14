@@ -42,7 +42,7 @@ func DefaultConfig() *Config {
 
 	// Server defaults
 	config.Server.Port = 1200
-	config.Server.Host = "localhost"
+	config.Server.Host = "0.0.0.0"
 	config.Server.BaseURL = "http://localhost:1200"
 	config.Server.TrustedProxies = []string{"127.0.0.1"}
 
