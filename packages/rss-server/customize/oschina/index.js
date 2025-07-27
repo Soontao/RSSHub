@@ -5,6 +5,7 @@ const moment = require("moment");
 const endpoint = createGenericEndpoint({
   endpointPath: "/oschina/news",
   entryUrl: "https://www.oschina.net/news",
+  atLeastPublishedInMinutes: 20,
   linkExtractor: ($) =>
     $("div.news-item")
       .get()
